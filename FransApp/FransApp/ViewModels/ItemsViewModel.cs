@@ -39,6 +39,7 @@ namespace FransApp.ViewModels
             try
             {
                 Items.Clear();
+                await DataStore.AddItemAsync(new Item() { Text = "test", Description = "Desc" });
                 var items = await DataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
