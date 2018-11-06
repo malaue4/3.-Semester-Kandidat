@@ -9,11 +9,10 @@ namespace FransApp.Services
     interface IRssProvider
     {
         /*
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
-        Task<bool> DeleteItemAsync(T item);
+        Task<bool> SubscribeToFeedAsync(Uri feed);
+        Task<bool> UnsubscribeFromFeedAsync(Uri feed);
         */
-        Task<RssSchema> GetRssFeedAsync(Uri feedUri);
-        Task<IEnumerable<RssSchema>> GetRssFeedsAsync(bool forceRefresh = false);
+        Task<IEnumerable<RssSchema>> GetRssFeedAsync(Uri feedUri); // Hent en specifik rss feed
+        Task<IEnumerable<RssSchema>> GetRssFeedsAsync(bool forceRefresh = false); // Hent alle de rss feeds som er vi er subscribed til (forceRefresh == brug ikke cache? måske?)
     }
 }
