@@ -19,6 +19,8 @@ namespace FransApp.UWP
     {
         public MainPage()
         {
+
+            Xamarin.FormsMaps.Init("5m1MYj4UGLHKBrsxzRYz~sl5SyVq652BKPkba9gEmGA~AkmyF4P3B5B5iKDFuJvWOXtQpV12v1BLzriMrd_EcICcsIHLux48nabtuVGwhOrL"); // tilføjet for at bruge maps
             this.InitializeComponent();
 
             LoadApplication(new FransApp.App());

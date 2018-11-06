@@ -20,6 +20,7 @@ namespace FransApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle); // tilføjet for at bruge maps
             LoadApplication(new App());
         }
     }
