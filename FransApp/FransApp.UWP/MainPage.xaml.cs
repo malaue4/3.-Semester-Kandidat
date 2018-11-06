@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Credentials;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -12,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using FransApp.Views;
 
 namespace FransApp.UWP
 {
@@ -19,11 +24,60 @@ namespace FransApp.UWP
     {
         public MainPage()
         {
+            InitMaps();
 
-            Xamarin.FormsMaps.Init("5m1MYj4UGLHKBrsxzRYz~sl5SyVq652BKPkba9gEmGA~AkmyF4P3B5B5iKDFuJvWOXtQpV12v1BLzriMrd_EcICcsIHLux48nabtuVGwhOrL"); // tilføjet for at bruge maps
-            this.InitializeComponent();
+            InitializeComponent();
 
             LoadApplication(new FransApp.App());
+        }
+
+        private async void InitMaps()
+        {
+            var apiKey = GetApiKey() ?? await RequestApiKey();
+            apiKey.RetrievePassword();
+            Xamarin.FormsMaps.Init(apiKey.Password); // tilføjet for at bruge maps
+        }
+
+        private async Task<PasswordCredential> RequestApiKey()
+        {
+            var apiDialog = new RequestApiKeyDialog();
+            await apiDialog.ShowAsync();
+
+            var vault = new PasswordVault();
+            PasswordCredential credential = new PasswordCredential("bingApiKey", "default_user", apiDialog.Result);
+            vault.Add(credential);
+
+            return credential;
+        }
+
+        private PasswordCredential GetApiKey()
+        {
+            PasswordCredential credential = null;
+
+            var vault = new PasswordVault();
+
+            try
+            {
+            var credentialList = vault.FindAllByResource("bingApiKey");
+            if (credentialList.Count > 0)
+            {
+                if (credentialList.Count == 1)
+                {
+                    credential = credentialList[0];
+                }
+                else
+                {
+                    credential = vault.Retrieve("bingApiKey", "default_user");
+                }
+            }
+
+            return credential;
+            }
+            catch (COMException e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
         }
     }
 }
