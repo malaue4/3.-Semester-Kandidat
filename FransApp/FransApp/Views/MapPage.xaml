@@ -5,13 +5,14 @@
              x:Class="FransApp.Views.MapPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
+            <Label Text="A map of the area!"
+                VerticalOptions="Center" 
                 HorizontalOptions="CenterAndExpand" />
-            <maps:Map WidthRequest="320" HeightRequest="200"
+            <maps:Map HeightRequest="200" WidthRequest="320"
                                    x:Name="MyMapControl"
                                    IsShowingUser="true"
-                                   MapType="Street"/>
+                                   MapType="Street"
+                HorizontalOptions="Fill"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
