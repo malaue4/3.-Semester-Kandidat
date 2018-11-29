@@ -17,7 +17,7 @@ namespace CaseApp.Views
 		{
 			InitializeComponent ();
 
-            MyMapControl.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(37, -122), Distance.FromKilometers(1)));
+            MyMapControl.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(55.652397, 12.139755), Distance.FromKilometers(0.5)));
         }
 	}
 }
