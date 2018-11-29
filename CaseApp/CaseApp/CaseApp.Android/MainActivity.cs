@@ -19,6 +19,7 @@ namespace CaseApp.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Xamarin.FormsMaps.Init(this, savedInstanceState); // tilføjet for at bruge maps
             LoadApplication(new App());
         }
     }
