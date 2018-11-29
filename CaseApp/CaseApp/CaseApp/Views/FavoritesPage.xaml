@@ -1,35 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CaseApp.Views.FavoritesPage">
+             x:Class="CaseApp.Views.FavoritesPage"
+             Appearing="ContentPage_Appearing">
     <ListView x:Name="MyListView"
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-
-        <!--Built in Cells-->
-        <!--
-    <ListView.ItemTemplate>
-        <DataTemplate>
-            <TextCell Text="{Binding .}" />
-        </DataTemplate>
-    </ListView.ItemTemplate>
-      -->
-
-        <!--Custom View Cells-->
-        <!--
-    -->
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
-                        <StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand">
                             <Label Text="{Binding Title}" 
                    Style="{DynamicResource ListItemTextStyle}" />
                             <Label Text="{Binding Description}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   VerticalOptions="StartAndExpand"/>
                         </StackLayout>
-                        <Label Text="⋆" Style="{DynamicResource }"/>
+                        <Switch IsToggled="{Binding Favorite}" VerticalOptions="CenterAndExpand" Toggled="Favorite_Toggled" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

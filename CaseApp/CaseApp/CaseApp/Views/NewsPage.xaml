@@ -1,12 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CaseApp.Views.NewsPage">
+             xmlns:services="clr-namespace:CaseApp.Services"
+             xmlns:vm="clr-namespace:CaseApp.ViewModels"
+             xmlns:caseapp="clr-namespace:CaseApp"
+             x:Class="CaseApp.Views.NewsPage"
+             Appearing="ContentPage_Appearing"
+             Title="News">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <caseapp:ItemSelectedConverter x:Key="itemSelected" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:NewsViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <ListView x:Name="MyListView"
+            ItemsSource="{Binding Items}"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement"
+            IsGroupingEnabled="True"
+                  HasUnevenRows="True"
+                  SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image WidthRequest="48" HeightRequest="48" Source="{Binding Source.Icon}" />
+                                <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>
+                                <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" HeightRequest="48" Toggled="Favorite_Toggled" Grid.Column="2"/>
+                                <Label x:Name="ItemDescription" Text="{Binding Description}" Grid.ColumnSpan="3" Grid.Row="1"
+                                       IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
+                                    Source={x:Reference MyListView}, Path=SelectedItem}"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Key}" VerticalOptions="End"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+            </ListView>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

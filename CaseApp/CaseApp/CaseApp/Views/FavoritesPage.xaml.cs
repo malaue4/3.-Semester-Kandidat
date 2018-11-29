@@ -1,5 +1,7 @@
 ﻿using CaseApp.Models;
+using CaseApp.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -19,31 +21,9 @@ namespace CaseApp.Views
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<Article>
-            {
-                new Article{
-                    Title="Item 1",
-                    Description="This is an item",
-                    Favorite=false
-                },
-                new Article{
-                    Title="Item 2",
-                    Description="This is an item",
-                    Favorite=false
-                },
-                new Article{
-                    Title="Item 3",
-                    Description="This is an item",
-                    Favorite=false
-                },
-                new Article{
-                    Title="Item 4",
-                    Description="This is an item",
-                    Favorite=false
-                }
-            };
+            //NewsProvider.GetProvider().GetFavorites().ForEach(item => Items.Add(item));
 			
-			MyListView.ItemsSource = Items;
+			MyListView.ItemsSource = NewsProvider.GetProvider().GetFavorites();
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -55,6 +35,17 @@ namespace CaseApp.Views
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
+        }
+
+        private void Favorite_Toggled(object sender, ToggledEventArgs e)
+        {
+            
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+
+            MyListView.ItemsSource = NewsProvider.GetProvider().GetFavorites();
         }
     }
 }
