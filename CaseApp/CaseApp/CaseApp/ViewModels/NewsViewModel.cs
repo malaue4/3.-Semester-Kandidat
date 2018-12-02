@@ -10,7 +10,5 @@ namespace CaseApp.ViewModels
     {
         public ObservableCollection<Article> Articles = new ObservableCollection<Article>();
         public ObservableCollection<Article> FavoriteArticles = new ObservableCollection<Article>();
-
-
     }
 }

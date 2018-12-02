@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 using CaseApp;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Windows.Input;
 
 namespace CaseApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewsPage : ContentPage
 	{
-        public List<Article> Items { get; set; }
+        //public List<Article> Items { get; set; }
+        Article CurrentArticle;
         public ImageSource img { get; set; }
 		public NewsPage ()
 		{
@@ -27,8 +29,18 @@ namespace CaseApp.Views
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (!(e.Item is Article article))
+            Console.WriteLine(e.Item.ToString());
+
+            if(e.Item is Article article)
+            {
+                CurrentArticle = (Article) e.Item;
+            }
+
+            if (!(e.Item is Article articleBoy))
+            {
                 return;
+            }
+
 
             /*
             var articlePage = new ArticlePage();
@@ -40,9 +52,23 @@ namespace CaseApp.Views
             */
         }
 
+        private async void Link_Clicked() {
+            //await DisplayAlert(CurrentArticle.Title, "test", "test");
+
+            Console.WriteLine(CurrentArticle.Title);
+
+            var articlePage = new ArticlePage();
+            articlePage.BindingContext = CurrentArticle;
+            await Navigation.PushAsync(articlePage);
+
+            //Deselect Item
+            //((ListView)sender).SelectedItem = null;
+            
+        }
+
         private void Favorite_Toggled(object sender, ToggledEventArgs e)
         {
-
+           
         }
 
         private async void UpdateImage()
@@ -57,8 +83,9 @@ namespace CaseApp.Views
 
         private async void UpdateItems()
         {
-            Items = NewsProvider.GetProvider().GetNews();
-            MyListView.ItemsSource = from item in Items
+            
+
+            MyListView.ItemsSource = from item in NewsProvider.GetProvider().GetNews()
                                      orderby item.PublishDate descending
                                      group item by Utility.RelativeTime(item.PublishDate);
 
