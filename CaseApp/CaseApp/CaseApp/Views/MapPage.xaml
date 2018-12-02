@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CaseApp.Views.MapPage">
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="CaseApp.Views.MapPage"
+             Title="Map">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <maps:Map HeightRequest="200" WidthRequest="320"
+                                   x:Name="MyMapControl"
+                                   IsShowingUser="False"
+                                   MapType="Street"
+                HorizontalOptions="Fill"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

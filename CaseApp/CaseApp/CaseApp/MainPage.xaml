@@ -45,7 +45,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:MapPage />
+                <views:SettingsPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

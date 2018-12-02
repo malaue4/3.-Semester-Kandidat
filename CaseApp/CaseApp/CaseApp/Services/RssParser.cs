@@ -12,25 +12,28 @@ namespace CaseApp.Services
     {
         public async Task<List<Article>> ParseFeed(string rss)
         {
-            var xdoc = XDocument.Load(rss);
-            var channel = xdoc.Descendants("channel").First();
-            NewsFeed newsfeed = new NewsFeed
-            {
-                Title = (string)channel.Element("title"),
-                Description = (string)channel.Element("description"),
-                Link = new Uri((string)channel.Element("link")),
-                Icon = ImageSource.FromResource("Assets.doc512.png")
-            };
-            return (from item in xdoc.Descendants("item")
-                    select new Article
+            return await Task.Run(() =>
+                {
+                    var xdoc = XDocument.Load(rss);
+                    var channel = xdoc.Descendants("channel").First();
+                    NewsFeed newsfeed = new NewsFeed
                     {
-                        Title = (string)item.Element("title"),
-                        Description = (string)item.Element("description"),
-                        Link = new Uri((string)item.Element("link")),
-                        PublishDate = DateTime.Parse((string)item.Element("pubDate")),
-                        Author = (string)item.Element("author"),
-                        Source = newsfeed
-                    }).ToList();
+                        Title = (string)channel.Element("title"),
+                        Description = (string)channel.Element("description"),
+                        Link = new Uri((string)channel.Element("link")),
+                        Icon = ImageSource.FromFile("doc512.png")
+                    };
+                    return (from item in xdoc.Descendants("item")
+                            select new Article
+                            {
+                                Title = (string)item.Element("title"),
+                                Description = (string)item.Element("description"),
+                                Link = new Uri((string)item.Element("link")),
+                                PublishDate = DateTime.Parse((string)item.Element("pubDate")),
+                                Author = (string)item.Element("author"),
+                                Source = newsfeed
+                            }).ToList();
+                });
         }
     }
 }
