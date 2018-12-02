@@ -53,10 +53,7 @@ namespace CaseApp.Views
         }
 
         private async void Link_Clicked() {
-            //await DisplayAlert(CurrentArticle.Title, "test", "test");
-
-            Console.WriteLine(CurrentArticle.Title);
-
+            
             var articlePage = new ArticlePage();
             articlePage.BindingContext = CurrentArticle;
             await Navigation.PushAsync(articlePage);
