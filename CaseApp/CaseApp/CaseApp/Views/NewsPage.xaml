@@ -19,7 +19,7 @@
         <StackLayout>
 
             <ListView x:Name="MyListView"
-            ItemsSource="{Binding Items}"
+            
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             IsGroupingEnabled="True"
@@ -37,17 +37,37 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 
                                 <Image Source="{Binding Source.Icon}" />
                                 <Image Margin="16" WidthRequest="16" HeightRequest="16" Source="{Binding Path=Link, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
                                 <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>
+
                                 <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" HeightRequest="48" Toggled="Favorite_Toggled" Grid.Column="2"/>
+
                                 <Label x:Name="ItemDescription" Text="{Binding Description}" Grid.ColumnSpan="3" Grid.Row="1"
                                        IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
-                                    Source={x:Reference MyListView}, Path=SelectedItem}"
+                                       Source={x:Reference MyListView}, Path=SelectedItem}"
                                        Style="{DynamicResource ListItemDetailTextStyle}"/>
+
+                                <Label x:Name="itemLink" Text="See full article" TextColor="Blue" Grid.ColumnSpan="3" Grid.Row="2"
+                                       IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
+                                       Source={x:Reference MyListView}, Path=SelectedItem}"
+                                       Style="{DynamicResource ListItemDetailTextStyle}">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Link_Clicked"></TapGestureRecognizer>
+                                        </Label.GestureRecognizers>
+                                </Label>
+
+                                       
+
+
+                                <!--<Label x:Name="ItemLink" Text="(full article)" FontSize="Small" TextColor="Blue" Grid.Column="1" Grid.Row="2" 
+                                            IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
+                                            Source={x:Reference MyListView}, Path=SelectedItem}"
+                                            Style="{DynamicResource ListItemDetailTextStyle}"/>-->
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
