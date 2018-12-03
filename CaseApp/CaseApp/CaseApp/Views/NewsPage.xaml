@@ -38,7 +38,10 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Image WidthRequest="48" HeightRequest="48" Source="{Binding Source.Icon}" />
+
+                                
+                                <Image Source="{Binding Source.Icon}" />
+                                <Image Margin="16" WidthRequest="16" HeightRequest="16" Source="{Binding Path=Link, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
                                 <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>
                                 <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" HeightRequest="48" Toggled="Favorite_Toggled" Grid.Column="2"/>
                                 <Label x:Name="ItemDescription" Text="{Binding Description}" Grid.ColumnSpan="3" Grid.Row="1"

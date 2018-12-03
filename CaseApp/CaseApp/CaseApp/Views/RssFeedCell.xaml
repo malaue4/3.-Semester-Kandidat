@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CaseApp.Views.RssFeedCell">
+    <ViewCell.View>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image WidthRequest="48" HeightRequest="48" Source="{Binding Source.Icon}" />
+            <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>
+            <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" HeightRequest="48" Grid.Column="2"/>
+            <Label x:Name="ItemDescription" Text="{Binding Description}" Grid.ColumnSpan="3" Grid.Row="1"
+                                       IsVisible="True"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"/>
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

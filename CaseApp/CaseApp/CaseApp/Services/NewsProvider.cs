@@ -28,17 +28,11 @@ namespace CaseApp.Services
             {
                 Articles.Add(article);
             }
-            /*
-            var collection = new ObservableCollection<Article>();
-            for (int i = 0; i < 10; i++)
+            articles = await (new RssParser().ParseFeed("https://www.blog.google/rss/"));
+            foreach (var article in articles)
             {
-                collection.Add(new Article
-                {
-                    Title=$"Item {i}",
-                    Description="This is an item",
-                    Favorite=true
-                });
-            }*/
+                Articles.Add(article);
+            }
         }
 
         public List<Article> GetNews()
