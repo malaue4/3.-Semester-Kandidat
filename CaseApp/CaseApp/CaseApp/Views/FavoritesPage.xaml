@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:CaseApp.Views"
              x:Class="CaseApp.Views.FavoritesPage"
-             Appearing="ContentPage_Appearing"
+             Appearing="ContentPage_AppearingAsync"
              Title="Favorites">
     <ListView x:Name="MyListView"
             ItemsSource="{Binding Items}"
@@ -10,18 +11,7 @@
             CachingStrategy="RecycleElement">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ViewCell>
-                    <StackLayout Orientation="Horizontal">
-                        <StackLayout HorizontalOptions="StartAndExpand">
-                            <Label Text="{Binding Title}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-                            <Label Text="{Binding Description}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   VerticalOptions="StartAndExpand"/>
-                        </StackLayout>
-                        <Switch IsToggled="{Binding Favorite}" VerticalOptions="CenterAndExpand" Toggled="Favorite_Toggled" />
-                    </StackLayout>
-                </ViewCell>
+                <views:RssFeedCell/>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

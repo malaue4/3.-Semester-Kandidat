@@ -40,12 +40,10 @@ namespace CaseApp.Services
             return Articles.ToList();
         }
 
-        public List<Article> GetFavorites()
+        public async Task<List<Article>> GetFavoritesAsync()
         {
-            return Articles.Where(article => article.Favorite).ToList();
+            return await App.Database.GetFavorites();
+            //return Articles.Where(article => article.Favorite).ToList();
         }
-
-        /*
-        */
     }
 }
