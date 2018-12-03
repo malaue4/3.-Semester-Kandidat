@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CaseApp.ViewModels"
              x:Class="CaseApp.Views.FavoritesPage"
              Appearing="ContentPage_Appearing"
              Title="Favorites">
+    <ContentPage.BindingContext>
+        <viewModels:NewsViewModel/>
+    </ContentPage.BindingContext>
     <ListView x:Name="MyListView"
-            ItemsSource="{Binding Items}"
+            ItemsSource="{Binding FavoriteArticles}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
         <ListView.ItemTemplate>

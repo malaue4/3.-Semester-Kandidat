@@ -20,10 +20,6 @@ namespace CaseApp.Views
         public FavoritesPage()
         {
             InitializeComponent();
-
-            //NewsProvider.GetProvider().GetFavorites().ForEach(item => Items.Add(item));
-			
-			MyListView.ItemsSource = NewsProvider.GetProvider().GetFavorites();
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -44,8 +40,9 @@ namespace CaseApp.Views
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-
-            MyListView.ItemsSource = NewsProvider.GetProvider().GetFavorites();
+            //MyListView.BeginRefresh();
+            //MyListView.ItemsSource = NewsProvider.GetProvider().GetFavorites();
+           // MyListView.EndRefresh();
         }
     }
 }

@@ -31,7 +31,8 @@ namespace CaseApp.Services
                                 Link = new Uri((string)item.Element("link")),
                                 PublishDate = DateTime.Parse((string)item.Element("pubDate")),
                                 Author = (string)item.Element("author"),
-                                Source = newsfeed
+                                Source = newsfeed,
+                                Favorite = true
                             }).ToList();
                 });
         }

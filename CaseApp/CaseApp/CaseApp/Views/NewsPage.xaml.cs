@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CaseApp;
+using CaseApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Windows.Input;
@@ -16,15 +17,13 @@ namespace CaseApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewsPage : ContentPage
 	{
-        //public List<Article> Items { get; set; }
         public ImageSource img { get; set; }
 		public NewsPage ()
 		{
 			InitializeComponent ();
 
-            UpdateItems();
-            UpdateImage();
-        }
+		    ((NewsViewModel) BindingContext).Articles.CollectionChanged += (i,b) => UpdateItems();
+		}
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -76,9 +75,7 @@ namespace CaseApp.Views
 
         private async void UpdateItems()
         {
-            
-
-            MyListView.ItemsSource = from item in NewsProvider.GetProvider().GetNews()
+            MyListView.ItemsSource = from item in ((NewsViewModel)BindingContext).Articles
                                      orderby item.PublishDate descending
                                      group item by Utility.RelativeTime(item.PublishDate);
 
@@ -86,7 +83,13 @@ namespace CaseApp.Views
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            UpdateItems();
+            //UpdateItems();
+            UpdateImage();
         }
-    }
+
+	    private void MyListView_OnRefreshing(object sender, EventArgs e)
+	    {
+	        //UpdateItems();
+	    }
+	}
 }

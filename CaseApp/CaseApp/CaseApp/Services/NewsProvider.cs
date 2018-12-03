@@ -41,9 +41,9 @@ namespace CaseApp.Services
             }*/
         }
 
-        public List<Article> GetNews()
+        public async Task<List<Article>> GetNews()
         {
-            return Articles.ToList();
+            return await (new RssParser().ParseFeed("https://visualstudiomagazine.com/rss-feeds/columns.aspx"));
         }
 
         public List<Article> GetFavorites()

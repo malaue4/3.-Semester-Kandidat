@@ -22,7 +22,9 @@
             
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
-            IsGroupingEnabled="True"
+            IsGroupingEnabled="False"
+                      IsPullToRefreshEnabled="True"
+                      Refreshing="MyListView_OnRefreshing"
                   HasUnevenRows="True"
                   SelectionMode="Single">
                 <ListView.ItemTemplate>
