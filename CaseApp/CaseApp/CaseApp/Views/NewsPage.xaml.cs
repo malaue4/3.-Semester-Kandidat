@@ -21,28 +21,7 @@ namespace CaseApp.Views
 		public NewsPage ()
 		{
 			InitializeComponent ();
-
-            UpdateItems();
-            UpdateImage();
-        }
-
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Console.WriteLine(e.Item.ToString());
-
-            if(e.Item is Article article)
-            {
-            }
-
-
-            /*
-            var articlePage = new ArticlePage();
-            articlePage.BindingContext = article;
-            await Navigation.PushAsync(articlePage);
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
-            */
+		    MyListView.BeginRefresh();
         }
 
         private async void Link_Clicked(object sender, EventArgs eventArgs)
@@ -61,26 +40,24 @@ namespace CaseApp.Views
 
         private void Favorite_Toggled(object sender, ToggledEventArgs e)
         {
-           
-        }
-
-        private async void UpdateImage()
-        {
-            var uri = new Uri("https://www.google.com");
-            img = ImageSource.FromUri(new Uri("https://icons.duckduckgo.com/ip2/www.google.com.jpg"));
-            //img = ImageSource.FromUri(new Uri("https://i.imgur.com/Rc7GiRs.jpg"));
-            
-
-            //TestImage.Source = img;
+            var item = (sender as View)?.BindingContext;
+            if (e.Value)
+            {
+                App.Database.SaveItemAsync(item as Article);
+            }
+            else
+            {
+                App.Database.DeleteItemAsync(item as Article);
+            }
         }
 
         private async void UpdateItems()
         {
-            
+            /*
 
-            MyListView.ItemsSource = from item in NewsProvider.GetProvider().GetNews()
+            MyListView.ItemsSource = from item in await NewsProvider.GetProvider().GetNews()
                                      orderby item.PublishDate descending
-                                     group item by Utility.RelativeTime(item.PublishDate);
+                                     group item by Utility.RelativeTime(item.PublishDate);*/
 
         }
 

@@ -11,32 +11,28 @@ namespace CaseApp.Services
 {
     class NewsProvider
     {
-        public ObservableCollection<Article> Articles = new ObservableCollection<Article>();
+        public List<Article> Articles;
         private static NewsProvider _instance = new NewsProvider();
         public static NewsProvider GetProvider() => _instance;
 
-        private NewsProvider()
+        private async Task<List<Article>> LoadSampleData()
         {
-            LoadSampleData();
+            var articles = new List<Article>();
+            articles.AddRange(await (new RssParser().ParseFeed("https://visualstudiomagazine.com/rss-feeds/columns.aspx")));
+            articles.AddRange(await (new RssParser().ParseFeed("https://www.blog.google/rss/")));
+           /* foreach (var article in articles)
+            {
+                if (await App.Database.HasItem(article)) article.Favorite = true;
+            }*/
+            return articles;
         }
 
-        private async void LoadSampleData()
+        public async Task<List<Article>> GetNews(bool refresh = false)
         {
-            //var feed = new WebClient().DownloadString("https://visualstudiomagazine.com/rss-feeds/columns.aspx");
-            var articles = await (new RssParser().ParseFeed("https://visualstudiomagazine.com/rss-feeds/columns.aspx"));
-            foreach (var article in articles)
+            if (Articles is null || refresh)
             {
-                Articles.Add(article);
+                Articles = await LoadSampleData();
             }
-            articles = await (new RssParser().ParseFeed("https://www.blog.google/rss/"));
-            foreach (var article in articles)
-            {
-                Articles.Add(article);
-            }
-        }
-
-        public List<Article> GetNews()
-        {
             return Articles.ToList();
         }
 

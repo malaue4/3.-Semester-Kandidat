@@ -2,17 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:CaseApp.Views"
+             xmlns:caseApp="clr-namespace:CaseApp"
+             xmlns:viewModels="clr-namespace:CaseApp.ViewModels"
              x:Class="CaseApp.Views.FavoritesPage"
              Appearing="ContentPage_AppearingAsync"
-             Title="Favorites">
+             Title="Favorites"
+             x:Name="ThisPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}" Icon="Assets/refresh.png" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <caseApp:ItemSelectedConverter x:Key="ItemSelected" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewModels:NewsViewModel/>
+    </ContentPage.BindingContext>
     <ListView x:Name="MyListView"
-            ItemsSource="{Binding Items}"
-            ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement">
+              ItemsSource="{Binding FavoriteArticles}"
+              CachingStrategy="RecycleElement"
+              HasUnevenRows="True"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding RefreshCommand}"
+              IsRefreshing="{Binding IsRefreshing}"
+              IsGroupingEnabled="True">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <views:RssFeedCell/>
+                <views:RssFeedCell x:Name="ItemCell"
+                                   Page="{x:Reference ThisPage}"
+                                   IsExpanded="{Binding Converter={StaticResource ItemSelected}, ConverterParameter={x:Reference ItemCell},
+                                       Source={x:Reference MyListView}, Path=SelectedItem}"/>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <ListView.GroupHeaderTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Label Text="{Binding Key}" VerticalOptions="End"/>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.GroupHeaderTemplate>
     </ListView>
 </ContentPage>

@@ -15,33 +15,14 @@ namespace CaseApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FavoritesPage : ContentPage
     {
-        public ObservableCollection<Article> Items { get; set; }
-
         public FavoritesPage()
         {
             InitializeComponent();
         }
 
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void ContentPage_AppearingAsync(object sender, EventArgs e)
         {
-            if (e.Item == null)
-                return;
-
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
-        }
-
-        private void Favorite_Toggled(object sender, ToggledEventArgs e)
-        {
-            
-        }
-
-        private async void ContentPage_AppearingAsync(object sender, EventArgs e)
-        {
-
-            MyListView.ItemsSource = await NewsProvider.GetProvider().GetFavoritesAsync();
+            MyListView.BeginRefresh();
         }
     }
 }

@@ -21,8 +21,9 @@ namespace CaseApp.Services
                         Title = (string)channel.Element("title"),
                         Description = (string)channel.Element("description"),
                         Link = new Uri((string)channel.Element("link")),
-                        Icon = ImageSource.FromFile("doc512.png")
+                        //Icon = ImageSource.FromUri(new Uri($"https://www.google.com/s2/favicons?domain={rss}"))
                     };
+                    
                     return (from item in xdoc.Descendants("item")
                             select new Article
                             {

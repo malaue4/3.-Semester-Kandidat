@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CaseApp.Views.RssFeedCell">
+             x:Class="CaseApp.Views.RssFeedCell"
+          x:Name="ThisPage">
     <ViewCell.View>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -12,13 +13,26 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Image WidthRequest="48" HeightRequest="48" Source="{Binding Source.Icon}" />
-            <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>
-            <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" HeightRequest="48" Grid.Column="2"/>
-            <Label x:Name="ItemDescription" Text="{Binding Description}" Grid.ColumnSpan="3" Grid.Row="1"
-                                       IsVisible="True"
-                                       Style="{DynamicResource ListItemDetailTextStyle}"/>
+            <Image Margin="16" WidthRequest="16" HeightRequest="16"
+                   Source="{Binding Path=Link, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
+            <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"
+                   Grid.Row="0" Grid.Column="1"/>
+            <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" Toggled="Favorite_Toggled" 
+                   HeightRequest="48" Margin="16, 0"
+                   Grid.Row="0" Grid.Column="2"/>
+            <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"
+                   Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1">
+                <Label Text="{Binding Description}"
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                <Label Text="See full article" TextColor="Blue"
+                    Style="{DynamicResource ListItemDetailTextStyle}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Link_Clicked"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
         </Grid>
     </ViewCell.View>
 </ViewCell>

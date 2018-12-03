@@ -42,5 +42,10 @@ namespace CaseApp.Services
         {
             return _database.DeleteAsync(item);
         }
+
+        public async Task<bool> HasItem(Article article)
+        {
+            return await _database.Table<Article>().Where(i => i.Equals(article)).CountAsync() > 0;
+        }
     }
 }

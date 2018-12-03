@@ -1,86 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:services="clr-namespace:CaseApp.Services"
              xmlns:vm="clr-namespace:CaseApp.ViewModels"
              xmlns:caseapp="clr-namespace:CaseApp"
+             xmlns:views="clr-namespace:CaseApp.Views"
              x:Class="CaseApp.Views.NewsPage"
              Appearing="ContentPage_Appearing"
-             Title="News">
+             Title="News"
+             x:Name="ThisPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}" Icon="Assets/refresh.png" Order="Primary"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
-            <caseapp:ItemSelectedConverter x:Key="itemSelected" />
+            <caseapp:ItemSelectedConverter x:Key="ItemSelected" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.BindingContext>
-        <vm:NewsViewModel/>
+        <vm:NewsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-
-            <ListView x:Name="MyListView"
-            
-            ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement"
-            IsGroupingEnabled="True"
+        <ListView x:Name="MyListView"
+                  ItemsSource="{Binding Articles}"
+                  CachingStrategy="RecycleElement"
                   HasUnevenRows="True"
-                  SelectionMode="Single">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-
-                                
-                                <Image Source="{Binding Source.Icon}" />
-                                <Image Margin="16" WidthRequest="16" HeightRequest="16" Source="{Binding Path=Link, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
-                                <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>
-
-                                <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" HeightRequest="48" Toggled="Favorite_Toggled" Grid.Column="2"/>
-
-                                <Label x:Name="ItemDescription" Text="{Binding Description}" Grid.ColumnSpan="3" Grid.Row="1"
-                                       IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
-                                       Source={x:Reference MyListView}, Path=SelectedItem}"
-                                       Style="{DynamicResource ListItemDetailTextStyle}"/>
-
-                                <Label x:Name="itemLink" Text="See full article" TextColor="Blue" Grid.ColumnSpan="3" Grid.Row="2"
-                                       IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
-                                       Source={x:Reference MyListView}, Path=SelectedItem}"
-                                       Style="{DynamicResource ListItemDetailTextStyle}">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="Link_Clicked"></TapGestureRecognizer>
-                                        </Label.GestureRecognizers>
-                                </Label>
-
-                                       
-
-
-                                <!--<Label x:Name="ItemLink" Text="(full article)" FontSize="Small" TextColor="Blue" Grid.Column="1" Grid.Row="2" 
-                                            IsVisible="{Binding Converter={StaticResource itemSelected}, ConverterParameter={x:Reference ItemDescription},
-                                            Source={x:Reference MyListView}, Path=SelectedItem}"
-                                            Style="{DynamicResource ListItemDetailTextStyle}"/>-->
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding Key}" VerticalOptions="End"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.GroupHeaderTemplate>
-            </ListView>
-        </StackLayout>
-        
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}"
+                  IsGroupingEnabled="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <views:RssFeedCell x:Name="ItemCell"
+                                       Page="{x:Reference ThisPage}"
+                                       IsExpanded="{Binding Converter={StaticResource ItemSelected}, ConverterParameter={x:Reference ItemCell},
+                                       Source={x:Reference MyListView}, Path=SelectedItem}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Key}" VerticalOptions="End"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

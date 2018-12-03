@@ -10,7 +10,7 @@ namespace CaseApp
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null && parameter is View view)
+            if (value != null && parameter is ViewCell view)
             {
                 return value == view.BindingContext;
             }
