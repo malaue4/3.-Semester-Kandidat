@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using CaseApp.Services;
-using CaseApp.UWP.Annotations;
+using CaseApp.Properties;
 
 namespace CaseApp.ViewModels
 {
@@ -69,6 +69,11 @@ namespace CaseApp.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public List<Article> GetNews()
+        {
+            return Articles.ToList();
         }
     }
 }

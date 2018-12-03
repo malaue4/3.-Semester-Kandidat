@@ -1,28 +1,22 @@
 ﻿using CaseApp.Models;
-using CaseApp.Services;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CaseApp;
 using CaseApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Windows.Input;
 
 namespace CaseApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewsPage : ContentPage
 	{
-        public ImageSource img { get; set; }
+        //public ImageSource img { get; set; }
 		public NewsPage ()
 		{
 			InitializeComponent ();
 
-		    ((NewsViewModel) BindingContext).Articles.CollectionChanged += (i,b) => UpdateItems();
+		    //((NewsViewModel) BindingContext).Articles.CollectionChanged += async (i,b) => await UpdateItems();
 		}
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -62,8 +56,8 @@ namespace CaseApp.Views
         {
            
         }
-
-        private async void UpdateImage()
+        /*
+        private async Task UpdateImage()
         {
             var uri = new Uri("https://www.google.com");
             img = ImageSource.FromUri(new Uri("https://icons.duckduckgo.com/ip2/www.google.com.jpg"));
@@ -71,25 +65,28 @@ namespace CaseApp.Views
             
 
             //TestImage.Source = img;
-        }
+        }*/
 
-        private async void UpdateItems()
+        private async Task UpdateItems()
         {
-            MyListView.ItemsSource = from item in ((NewsViewModel)BindingContext).Articles
-                                     orderby item.PublishDate descending
-                                     group item by Utility.RelativeTime(item.PublishDate);
+            await Task.Run(() =>
+            {
+                MyListView.ItemsSource = from item in ((NewsViewModel) BindingContext).GetNews()
+                    orderby item.PublishDate descending
+                    group item by Utility.RelativeTime(item.PublishDate);
+            });
 
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
+        private async void ContentPage_Appearing(object sender, EventArgs e)
         {
-            //UpdateItems();
-            UpdateImage();
+            await UpdateItems();
+            //UpdateImage();
         }
 
-	    private void MyListView_OnRefreshing(object sender, EventArgs e)
+	    private async void MyListView_OnRefreshing(object sender, EventArgs e)
 	    {
-	        //UpdateItems();
+	        await UpdateItems();
 	    }
 	}
 }
