@@ -37,6 +37,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Image WidthRequest="48" HeightRequest="48" Source="{Binding Source.Icon}" />
                                 <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}" Grid.Column="1"/>

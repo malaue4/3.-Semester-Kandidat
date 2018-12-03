@@ -17,7 +17,6 @@ namespace CaseApp.Views
 	public partial class NewsPage : ContentPage
 	{
         //public List<Article> Items { get; set; }
-        Article CurrentArticle;
         public ImageSource img { get; set; }
 		public NewsPage ()
 		{
@@ -33,12 +32,6 @@ namespace CaseApp.Views
 
             if(e.Item is Article article)
             {
-                CurrentArticle = (Article) e.Item;
-            }
-
-            if (!(e.Item is Article articleBoy))
-            {
-                return;
             }
 
 
@@ -52,10 +45,13 @@ namespace CaseApp.Views
             */
         }
 
-        private async void Link_Clicked() {
-            
+        private async void Link_Clicked(object sender, EventArgs eventArgs)
+        {
+
+            var article = ((View) sender).BindingContext as Article;
+
             var articlePage = new ArticlePage();
-            articlePage.BindingContext = CurrentArticle;
+            articlePage.BindingContext = article;
             await Navigation.PushAsync(articlePage);
 
             //Deselect Item
