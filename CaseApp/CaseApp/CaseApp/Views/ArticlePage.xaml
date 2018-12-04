@@ -7,7 +7,7 @@
              x:Name="ThisPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <caseApp:BoolToValueConverter x:TypeArguments="x:String" x:Key="StarSwitch" FalseValue="☆" TrueValue="★" />
+            <caseApp:BoolToValueConverter x:TypeArguments="x:String" x:Key="StarSwitch" TrueValue="Unfavorite" FalseValue="Favorite"/>
             <caseApp:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="StarSwitchIcon" FalseValue="Assets/fav0.png" TrueValue="Assets/fav1.png" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -17,7 +17,7 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
+        <!--<Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -40,6 +40,7 @@
                 <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" Toggled="Switch_OnToggled"/>
             </StackLayout>
             <WebView x:Name="ArticleContentView" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Source="{Binding Link}"/>
-        </Grid>
+        </Grid>-->
+        <WebView x:Name="ArticleContentView" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Source="{Binding Link}"/>
     </ContentPage.Content>
 </ContentPage>
