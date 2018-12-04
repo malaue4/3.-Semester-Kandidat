@@ -20,11 +20,9 @@ namespace CaseApp.Services
             var articles = new List<Article>();
             articles.AddRange(await (new RssParser().ParseFeed("https://visualstudiomagazine.com/rss-feeds/columns.aspx")));
             articles.AddRange(await (new RssParser().ParseFeed("https://www.blog.google/rss/")));
-           /* foreach (var article in articles)
-            {
-                if (await App.Database.HasItem(article)) article.Favorite = true;
-            }*/
-            return articles;
+            var faves = await App.Database.GetFavorites();
+            
+            return faves.Union(articles.Where(article=>!faves.Exists(fav => fav.Link.Equals(article.Link)))).ToList();
         }
 
         public async Task<List<Article>> GetNews(bool refresh = false)
