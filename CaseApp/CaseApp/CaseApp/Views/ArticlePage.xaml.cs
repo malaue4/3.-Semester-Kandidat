@@ -23,14 +23,14 @@ namespace CaseApp.Views
                     if (parameter is Article article)
                     {
                         article.Favorite = !article.Favorite;
-                        if (article.Favorite)
+                        /*if (article.Favorite)
                         {
                             await App.Database.SaveItemAsync(BindingContext as Article);
                         }
                         else
                         {
                             await App.Database.DeleteItemAsync(BindingContext as Article);
-                        }
+                        }*/
                     }
                 });
             }

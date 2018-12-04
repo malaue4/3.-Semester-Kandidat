@@ -15,6 +15,7 @@ namespace CaseApp.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Title { get; set; }
+        public DateTime PublishDate { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
         [Ignore]
@@ -29,16 +30,14 @@ namespace CaseApp.Models
             {
                 if (value == _favorite) return;
                 _favorite = value;
+                if (_favorite)
+                    App.Database.SaveItemAsync(this);
+                else
+                    App.Database.DeleteItemAsync(this);
                 OnPropertyChanged();
             }
         }
 
-        public DateTime PublishDate { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            return Link.Equals((obj as Article)?.Link);
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

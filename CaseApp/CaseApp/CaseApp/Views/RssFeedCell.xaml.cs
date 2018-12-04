@@ -54,6 +54,7 @@ namespace CaseApp.Views
 
 	    private void Favorite_Toggled(object sender, ToggledEventArgs e)
 	    {
+            /*
 	        var item = (sender as View)?.BindingContext;
 	        if (e.Value)
 	        {
@@ -62,7 +63,7 @@ namespace CaseApp.Views
 	        else
 	        {
 	            App.Database.DeleteItemAsync(item as Article);
-	        }
+	        }*/
 	    }
     }
 }
