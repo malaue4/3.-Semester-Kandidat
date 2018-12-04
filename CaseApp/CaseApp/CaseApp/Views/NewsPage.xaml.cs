@@ -21,7 +21,6 @@ namespace CaseApp.Views
 		public NewsPage ()
 		{
 			InitializeComponent ();
-		    MyListView.BeginRefresh();
         }
 
         private async void Link_Clicked(object sender, EventArgs eventArgs)
@@ -51,19 +50,9 @@ namespace CaseApp.Views
             }
         }
 
-        private async void UpdateItems()
-        {
-            /*
-
-            MyListView.ItemsSource = from item in await NewsProvider.GetProvider().GetNews()
-                                     orderby item.PublishDate descending
-                                     group item by Utility.RelativeTime(item.PublishDate);*/
-
-        }
-
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            UpdateItems();
+            MyListView.BeginRefresh();
         }
     }
 }
