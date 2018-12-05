@@ -19,7 +19,7 @@
                    Source="{Binding Path=Link, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
             <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"
                    Grid.Row="0" Grid.Column="1"/>
-            <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" Toggled="Favorite_Toggled" 
+            <Switch IsToggled="{Binding Favorite, Mode=TwoWay}"
                    HeightRequest="48" Margin="16, 0"
                    Grid.Row="0" Grid.Column="2"/>
             <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"

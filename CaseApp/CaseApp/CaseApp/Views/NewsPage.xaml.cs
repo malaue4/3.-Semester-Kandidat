@@ -16,38 +16,9 @@ namespace CaseApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewsPage : ContentPage
 	{
-        //public List<Article> Items { get; set; }
-        public ImageSource img { get; set; }
 		public NewsPage ()
 		{
 			InitializeComponent ();
-        }
-
-        private async void Link_Clicked(object sender, EventArgs eventArgs)
-        {
-
-            var article = ((View) sender).BindingContext as Article;
-
-            var articlePage = new ArticlePage();
-            articlePage.BindingContext = article;
-            await Navigation.PushAsync(articlePage);
-
-            //Deselect Item
-            //((ListView)sender).SelectedItem = null;
-            
-        }
-
-        private void Favorite_Toggled(object sender, ToggledEventArgs e)
-        {
-            var item = (sender as View)?.BindingContext;
-            if (e.Value)
-            {
-                App.Database.SaveItemAsync(item as Article);
-            }
-            else
-            {
-                App.Database.DeleteItemAsync(item as Article);
-            }
         }
 
         private void ContentPage_Appearing(object sender, EventArgs e)

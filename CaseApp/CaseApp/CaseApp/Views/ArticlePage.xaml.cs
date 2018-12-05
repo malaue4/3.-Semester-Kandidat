@@ -18,19 +18,11 @@ namespace CaseApp.Views
         {
             get
             {
-                return new Command(async (parameter) =>
+                return new Command(parameter =>
                 {
                     if (parameter is Article article)
                     {
                         article.Favorite = !article.Favorite;
-                        /*if (article.Favorite)
-                        {
-                            await App.Database.SaveItemAsync(BindingContext as Article);
-                        }
-                        else
-                        {
-                            await App.Database.DeleteItemAsync(BindingContext as Article);
-                        }*/
                     }
                 });
             }
@@ -39,18 +31,6 @@ namespace CaseApp.Views
         public ArticlePage()
         {
             InitializeComponent();
-        }
-
-        private void Switch_OnToggled(object sender, ToggledEventArgs e)
-        {
-            if (e.Value)
-            {
-                App.Database.SaveItemAsync(BindingContext as Article);
-            }
-            else
-            {
-                App.Database.DeleteItemAsync(BindingContext as Article);
-            }
         }
     }
 }

@@ -49,21 +49,5 @@ namespace CaseApp.Views
 	        var articlePage = new ArticlePage {BindingContext = article};
 	        if (Page != null) await Page.Navigation.PushAsync(articlePage);
         }
-
-
-
-	    private void Favorite_Toggled(object sender, ToggledEventArgs e)
-	    {
-            /*
-	        var item = (sender as View)?.BindingContext;
-	        if (e.Value)
-	        {
-	            App.Database.SaveItemAsync(item as Article);
-	        }
-	        else
-	        {
-	            App.Database.DeleteItemAsync(item as Article);
-	        }*/
-	    }
     }
 }
