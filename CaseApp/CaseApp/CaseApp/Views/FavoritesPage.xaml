@@ -38,7 +38,7 @@
         <ListView.GroupHeaderTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Label Text="{Binding Key}" VerticalOptions="End"/>
+                    <Label Text="{Binding Key}" VerticalOptions="End" Margin="4,0"/>
                 </ViewCell>
             </DataTemplate>
         </ListView.GroupHeaderTemplate>

@@ -49,5 +49,10 @@ namespace CaseApp.Views
 	        var articlePage = new ArticlePage {BindingContext = article};
 	        if (Page != null) await Page.Navigation.PushAsync(articlePage);
         }
+
+        private void ThisPage_Tapped(object sender, EventArgs e)
+        {
+            IsExpanded = !IsExpanded;
+        }
     }
 }

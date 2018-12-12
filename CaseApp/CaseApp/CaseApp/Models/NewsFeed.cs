@@ -16,6 +16,7 @@ namespace CaseApp.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string LinkString { get; set; }
+        public bool Active { get; set; }
 
         [Ignore]
         public Uri Link

@@ -16,6 +16,8 @@ namespace CaseApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewsPage : ContentPage
 	{
+       
+        public Article Selected { get; set; }
 		public NewsPage ()
 		{
 			InitializeComponent ();
@@ -24,6 +26,32 @@ namespace CaseApp.Views
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             MyListView.BeginRefresh();
+        }
+
+        private void MyListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if(sender is ListView list)
+            {
+                if(list.SelectedItem == Selected)
+                {
+                    list.SelectedItem = null;
+                } else
+                {
+                    Selected = e.Item as Article;
+                    //list.SelectedItem = Selected;
+                }
+            }
+        }
+
+        private void ItemCell_Tapped(object sender, EventArgs e)
+        {
+            if (sender is RssFeedCell cell)
+            {
+                cell.IsExpanded = !cell.IsExpanded;
+                if (cell.IsExpanded)
+                {
+                }
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace CaseApp.ViewModels
         private bool _isRefreshing = false;
         private IEnumerable<IGrouping<string, Article>> _articles;
         private IEnumerable<IGrouping<string, Article>> _favoriteArticles;
+        private List<NewsFeed> _newsFeeds;
 
         public IEnumerable<IGrouping<string, Article>> Articles
         {
@@ -36,6 +37,16 @@ namespace CaseApp.ViewModels
             {
                 if (Equals(value, _favoriteArticles)) return;
                 _favoriteArticles = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<NewsFeed> NewsFeeds {
+            get => _newsFeeds;
+            set
+            {
+                if (Equals(value, _newsFeeds)) return;
+                _newsFeeds = value;
                 OnPropertyChanged();
             }
         }
@@ -59,13 +70,33 @@ namespace CaseApp.ViewModels
                     IsRefreshing = true;
 
                     Articles = from item in await NewsProvider.GetProvider().GetNews()
-                        orderby item.PublishDate descending
-                        group item by Utility.RelativeTime(item.PublishDate);
+                               orderby item.PublishDate descending
+                               group item by Utility.RelativeTime(item.PublishDate);
                     FavoriteArticles = from item in await NewsProvider.GetProvider().GetFavoritesAsync()
-                        orderby item.PublishDate descending
-                        group item by Utility.RelativeTime(item.PublishDate);
+                                       orderby item.PublishDate descending
+                                       group item by Utility.RelativeTime(item.PublishDate);
                     IsRefreshing = false;
+
+                    NewsFeeds = new List<NewsFeed>
+                    {
+                        new NewsFeed
+                        {
+                            Title = "Google Blog",
+                            Active = true
+                        },
+                        new NewsFeed
+                        {
+                            Title = "Visual Studio Magazine",
+                            Active = true
+                        },
+                        new NewsFeed
+                        {
+                            Title = "XKCD",
+                            Active = false
+                        }
+                    };
                 });
+                
             }
         }
 
