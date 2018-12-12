@@ -65,5 +65,10 @@ namespace CaseApp.Views
 	            App.Database.DeleteItemAsync(item as Article);
 	        }*/
 	    }
+
+        private void ThisPage_Tapped(object sender, EventArgs e)
+        {
+            IsExpanded = !IsExpanded;
+        }
     }
 }

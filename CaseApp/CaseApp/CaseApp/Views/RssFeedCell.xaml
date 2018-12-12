@@ -2,7 +2,8 @@
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CaseApp.Views.RssFeedCell"
-          x:Name="ThisPage">
+          x:Name="ThisPage"
+          >
     <ViewCell.View>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -16,13 +17,14 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Image Margin="16" WidthRequest="16" HeightRequest="16"
-                   Source="{Binding Path=Link, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
+                   Source="{Binding Path=Link.Host, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
             <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"
                    Grid.Row="0" Grid.Column="1"/>
             <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" Toggled="Favorite_Toggled" 
                    HeightRequest="48" Margin="16, 0"
                    Grid.Row="0" Grid.Column="2"/>
             <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"
+                         Margin="4,0" 
                    Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1">
                 <Label Text="{Binding Description}"
                    Style="{DynamicResource ListItemDetailTextStyle}"/>

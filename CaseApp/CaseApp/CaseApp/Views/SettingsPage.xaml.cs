@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CaseApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,15 @@ namespace CaseApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        public List<NewsFeed> NewsFeeds { get; set; }
         public SettingsPage()
         {
             InitializeComponent();
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            MyListView.BeginRefresh();
         }
     }
 }
