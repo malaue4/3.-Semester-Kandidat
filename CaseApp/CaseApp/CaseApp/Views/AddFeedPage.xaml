@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CaseApp.ViewModels"
+             x:Class="CaseApp.Views.AddFeedPage">
+    <ContentPage.BindingContext>
+        <viewModels:NewsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Enter url:" />
+            <Entry Placeholder="http://rss.com/feed" x:Name="UrlEntry"/>
+            <Button Text="Add" />
+            <Button Text="Cancel" Clicked="CancelButton_OnClicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -77,6 +77,7 @@ namespace CaseApp.ViewModels
                                        group item by Utility.RelativeTime(item.PublishDate);
                     IsRefreshing = false;
 
+                    NewsFeeds = await NewsProvider.GetProvider().GetNewsFeedsAsync();
                     NewsFeeds = new List<NewsFeed>
                     {
                         new NewsFeed
@@ -97,6 +98,25 @@ namespace CaseApp.ViewModels
                     };
                 });
                 
+            }
+        }
+
+        public ICommand AddFeedCommand
+        {
+            get
+            {
+                return new Command(async feedUrl =>
+                {
+                    if ((await App.Database.GetNewsFeeds()).Any(feed => feed.LinkString == (string)feedUrl))
+                    {
+                        //It is already here
+                    }
+                    else
+                    {
+                        var url = new Uri((string) feedUrl);
+                        await App.Database.SaveNewsFeedAsync(NewsFeed.From(url));
+                    }
+                });
             }
         }
 

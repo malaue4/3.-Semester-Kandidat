@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CaseApp.Views.RssFeedCell"
+             x:Class="CaseApp.Views.NewsArticleCell"
           x:Name="ThisPage"
           >
     <ViewCell.View>
@@ -19,15 +19,22 @@
             <Image Margin="16" WidthRequest="16" HeightRequest="16"
                    Source="{Binding Path=Link.Host, StringFormat='https://www.google.com/s2/favicons?domain={0}'}" />
             <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"
+                   VerticalOptions="Center"
                    Grid.Row="0" Grid.Column="1"/>
-            <Switch IsToggled="{Binding Favorite, Mode=TwoWay}"
+            <!--<Switch IsToggled="{Binding Favorite, Mode=TwoWay}"
                    HeightRequest="48" Margin="16, 0"
-                   Grid.Row="0" Grid.Column="2"/>
+                   Grid.Row="0" Grid.Column="2"/>-->
+            <ImageButton Source="{Binding Favorite, Converter={StaticResource FavoriteSwitchIcon}}"
+                         HeightRequest="32" VerticalOptions="Center"
+                         Clicked="ThisPage_Tapped" Padding="8"
+                         Grid.Row="0" Grid.Column="2"/>
             <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"
                          Margin="4,0" 
                    Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1">
                 <Label Text="{Binding Description}"
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                   Style="{DynamicResource ListItemDetailTextStyle}"
+                       MaxLines="4" LineBreakMode="WordWrap"
+                       />
                 <Label Text="See full article" TextColor="Blue"
                     Style="{DynamicResource ListItemDetailTextStyle}">
                     <Label.GestureRecognizers>

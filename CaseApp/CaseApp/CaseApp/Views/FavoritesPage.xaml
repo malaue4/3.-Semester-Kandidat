@@ -29,7 +29,7 @@
               IsGroupingEnabled="True">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <views:RssFeedCell x:Name="ItemCell"
+                <views:NewsArticleCell x:Name="ItemCell"
                                    Page="{x:Reference ThisPage}"
                                    IsExpanded="{Binding Converter={StaticResource ItemSelected}, ConverterParameter={x:Reference ItemCell},
                                        Source={x:Reference MyListView}, Path=SelectedItem}"/>

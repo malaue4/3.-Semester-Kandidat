@@ -1,38 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:CaseApp.Models"
              xmlns:viewmodels="clr-namespace:CaseApp.ViewModels"
+             xmlns:views="clr-namespace:CaseApp.Views"
              x:Class="CaseApp.Views.SettingsPage"
+             Appearing="ContentPage_Appearing"
              Title="Settings"
-             >
+             x:Name="ThisPage">
     <ContentPage.BindingContext>
-        <viewmodels:NewsViewModel/>
+        <viewmodels:NewsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Button 1" Icon="Feed" Order="Primary" Priority="0" />
-        <ToolbarItem Text="Button 2" Icon="Feed" Order="Primary" Priority="1" />
+        <ToolbarItem Text="Add Feed" Icon="Assets/add_doc.png" Order="Primary" Priority="0" Clicked="AddFeedMenuItem_OnClicked" />
+        <ToolbarItem Text="Edite?" Icon="Assets/doc512.png" Order="Primary" Priority="1" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Feeds"/>
+            <Label Text="My Feeds"/>
             <ListView x:Name="MyListView"
-                  IsPullToRefreshEnabled="True"
-                  RefreshCommand="{Binding RefreshCommand}"
-                  IsRefreshing="{Binding IsRefreshing}"
-                ItemsSource="{Binding NewsFeeds}" HorizontalOptions="CenterAndExpand" HeightRequest="500">
+                      CachingStrategy="RecycleElement"
+                      ItemsSource="{Binding NewsFeeds}" 
+                      HasUnevenRows="False"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      HorizontalOptions="Fill"
+                      VerticalOptions="Start"
+                      HeightRequest="200">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Title}"/>
-                            <Switch IsToggled="{Binding Active}"/>
-                        </StackLayout>
+                        <views:NewsFeedCell />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <Label Text="Locations"/>
-            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Home Location" />
+                <Entry Placeholder="Placeholder" HorizontalOptions="FillAndExpand" />
+                <Button Text="Pick"/>
+            </StackLayout>
+            <ListView 
+                 BackgroundColor="Aquamarine"
+                 ItemsSource="{Binding TestList, Source={x:Reference ThisPage}}"/> 
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

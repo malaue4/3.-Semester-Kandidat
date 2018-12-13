@@ -8,12 +8,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <caseApp:BoolToValueConverter x:TypeArguments="x:String" x:Key="StarSwitch" TrueValue="Unfavorite" FalseValue="Favorite"/>
-            <caseApp:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="StarSwitchIcon" FalseValue="Assets/fav0.png" TrueValue="Assets/fav1.png" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding Favorite, Converter={StaticResource StarSwitch}}" Command="{Binding ToggleFavoriteCommand, Source={x:Reference ThisPage}}" CommandParameter="{Binding}"
-                     Icon="{Binding Favorite, Converter={StaticResource StarSwitchIcon}}">
+                     Icon="{Binding Favorite, Converter={StaticResource FavoriteSwitchIcon}}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

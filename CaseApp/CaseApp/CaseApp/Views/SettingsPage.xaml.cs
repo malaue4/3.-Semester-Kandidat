@@ -1,6 +1,7 @@
 ﻿using CaseApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +14,21 @@ namespace CaseApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        public List<NewsFeed> NewsFeeds { get; set; }
+        public ObservableCollection<string> TestList { get; set; } = new ObservableCollection<string>();
         public SettingsPage()
         {
             InitializeComponent();
+            TestList.Add("Test1");
         }
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             MyListView.BeginRefresh();
+        }
+
+        private void AddFeedMenuItem_OnClicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new AddFeedPage());
         }
     }
 }

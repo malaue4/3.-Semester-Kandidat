@@ -29,11 +29,10 @@
                   RefreshCommand="{Binding RefreshCommand}"
                   IsRefreshing="{Binding IsRefreshing}"
                   IsGroupingEnabled="True"
-                  ItemTapped="MyListView_ItemTapped"
-                  Style="MyTheme">
+                  ItemTapped="MyListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <views:RssFeedCell x:Name="ItemCell"
+                    <views:NewsArticleCell x:Name="ItemCell"
                                        Page="{x:Reference ThisPage}"
                                        IsExpanded="{Binding Converter={StaticResource ItemSelected}, ConverterParameter={x:Reference ItemCell},
                                        Source={x:Reference MyListView}, Path=SelectedItem}"
@@ -44,7 +43,7 @@
             <ListView.GroupHeaderTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="{Binding Key}" VerticalOptions="End" Margin="4,0"/>
+                        <Label Text="{Binding Key}" Style="{DynamicResource HeaderTextBlockStyle}"  VerticalOptions="End" Margin="4,0"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.GroupHeaderTemplate>

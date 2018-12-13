@@ -13,13 +13,13 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BoolToValueConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ItemSelectedConverter - Copy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ColorSelectedConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ItemSelectedConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ItemSelectedConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -30,6 +30,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\RssParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AddFeedPage.xaml.cs">
+      <DependentUpon>AddFeedPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ArticlePage.xaml.cs">
       <DependentUpon>ArticlePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -42,12 +46,16 @@
       <DependentUpon>MapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NewsFeedCell.xaml.cs">
+      <DependentUpon>NewsFeedCell.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\NewsPage.xaml.cs">
       <DependentUpon>NewsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\RssFeedCell.xaml.cs">
-      <DependentUpon>RssFeedCell.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NewsArticleCell.xaml.cs">
+      <DependentUpon>NewsArticleCell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs">
@@ -86,12 +94,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RssFeedCell.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewsArticleCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewsFeedCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AddFeedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

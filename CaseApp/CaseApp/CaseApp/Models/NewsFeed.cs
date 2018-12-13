@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using SQLite;
 using Xamarin.Forms;
 
@@ -31,6 +33,21 @@ namespace CaseApp.Models
                 _link = value;
                 LinkString = value.OriginalString;
             }
+        }
+
+        public static NewsFeed From(Uri url)
+        {
+            var xdoc = XDocument.Load(url.OriginalString);
+            var channel = xdoc.Descendants("channel").First();
+            NewsFeed newsfeed = new NewsFeed
+            {
+                Title = (string)channel.Element("title"),
+                Description = (string)channel.Element("description"),
+                Link = new Uri((string)channel.Element("link")),
+                //Icon = ImageSource.FromUri(new Uri($"https://www.google.com/s2/favicons?domain={rss}"))
+            };
+            return newsfeed;
+
         }
     }
 }

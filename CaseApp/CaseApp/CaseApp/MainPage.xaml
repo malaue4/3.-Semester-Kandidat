@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CaseApp"
             xmlns:views="clr-namespace:CaseApp.Views"
-            x:Class="CaseApp.MainPage">
+            x:Class="CaseApp.MainPage"
+            Title="News">
 
     <TabbedPage.Children>
         <NavigationPage Title="RSS">

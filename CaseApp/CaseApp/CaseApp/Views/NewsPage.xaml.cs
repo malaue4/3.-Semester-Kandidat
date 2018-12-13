@@ -45,7 +45,7 @@ namespace CaseApp.Views
 
         private void ItemCell_Tapped(object sender, EventArgs e)
         {
-            if (sender is RssFeedCell cell)
+            if (sender is NewsArticleCell cell)
             {
                 cell.IsExpanded = !cell.IsExpanded;
                 if (cell.IsExpanded)

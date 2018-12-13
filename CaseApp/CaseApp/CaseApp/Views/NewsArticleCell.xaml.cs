@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace CaseApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RssFeedCell : ViewCell
+	public partial class NewsArticleCell : ViewCell
 	{
 	    public static readonly BindableProperty IsExpandedProperty = BindableProperty.Create(
 	        nameof(IsExpanded),
 	        typeof(bool),
-	        typeof(RssFeedCell),
+	        typeof(NewsArticleCell),
 	        false);
 
 	    public Page Page
@@ -28,7 +29,7 @@ namespace CaseApp.Views
 	    public static readonly BindableProperty PageProperty = BindableProperty.Create(
 	        nameof(Page),
 	        typeof(Page),
-	        typeof(RssFeedCell),
+	        typeof(NewsArticleCell),
 	        null);
 
 	    public bool IsExpanded
@@ -37,7 +38,7 @@ namespace CaseApp.Views
 	        set { SetValue(IsExpandedProperty, value); }
 	    }
 
-	    public RssFeedCell ()
+	    public NewsArticleCell ()
 		{
 			InitializeComponent ();
 		}
@@ -52,7 +53,8 @@ namespace CaseApp.Views
 
         private void ThisPage_Tapped(object sender, EventArgs e)
         {
-            IsExpanded = !IsExpanded;
+            if(((View)sender).BindingContext is Article article)
+                article.Favorite = !article.Favorite;
         }
     }
 }

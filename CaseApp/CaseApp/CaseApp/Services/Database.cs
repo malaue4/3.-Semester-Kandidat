@@ -47,5 +47,39 @@ namespace CaseApp.Services
         {
             return await _database.Table<Article>().Where(i => i.Equals(article)).CountAsync() > 0;
         }
+
+
+        public Task<List<NewsFeed>> GetNewsFeeds()
+        {
+            return _database.Table<NewsFeed>().ToListAsync();
+        }
+
+        public Task<NewsFeed> GetNewsFeedAsync(int id)
+        {
+            return _database.Table<NewsFeed>().Where(i => i.Id == id).FirstOrDefaultAsync();
+        }
+
+        public Task<int> UpdateNewsFeedAsync(NewsFeed item)
+        {
+            return _database.UpdateAsync(item);
+        }
+
+
+        public Task<int> SaveNewsFeedAsync(NewsFeed item)
+        {
+            if (item.Id != 0)
+            {
+                return _database.UpdateAsync(item);
+            }
+            else
+            {
+                return _database.InsertAsync(item);
+            }
+        }
+
+        public Task<int> DeleteNewsFeedAsync(NewsFeed item)
+        {
+            return _database.DeleteAsync(item);
+        }
     }
 }

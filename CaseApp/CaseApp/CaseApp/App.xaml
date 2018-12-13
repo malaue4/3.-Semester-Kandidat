@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:caseapp="clr-namespace:CaseApp"
+             xmlns:caseApp="clr-namespace:CaseApp"
              x:Class="CaseApp.App">
     <Application.Resources>
-        <caseapp:ColorSelectedConverter x:Key="MyColorThing"/>
+        <ResourceDictionary>
+            <caseApp:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="FavoriteSwitchIcon" FalseValue="Assets/fav0.png" TrueValue="Assets/fav1.png" />
+            <Color x:Key="PrimStyle">Black</Color>
+            <Style x:Key="ListViewGroupHeaderStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{StaticResource PrimStyle}"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
