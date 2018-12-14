@@ -27,11 +27,10 @@ namespace CaseApp.Services
                 }
             }
             var faves = await App.Database.GetFavoritesAsync();
-            
-            return faves.Union(articles.Where(article=>!faves.Exists(fav => fav.Link.Equals(article.Link)))).ToList();
+            return faves.Intersect(articles).Union(articles).ToList();
         }
 
-        public async Task<List<Article>> GetNews(bool refresh = false)
+        public async Task<List<Article>> GetNews(bool refresh = true)
         {
             if (Articles is null || refresh)
             {

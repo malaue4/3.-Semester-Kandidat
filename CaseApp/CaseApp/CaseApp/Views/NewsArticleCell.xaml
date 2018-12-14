@@ -4,7 +4,7 @@
           x:Class="CaseApp.Views.NewsArticleCell"
           x:Name="ThisPage">
     <ViewCell.View>
-        <Grid>
+        <Grid Padding="8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -24,8 +24,9 @@
                    HeightRequest="48" Margin="16, 0"
                    Grid.Row="0" Grid.Column="2"/>-->
             <ImageButton Source="{Binding Favorite, Converter={StaticResource FavoriteSwitchIcon}}"
-                         HeightRequest="32" VerticalOptions="Center"
-                         Clicked="ThisPage_Tapped" Padding="8"
+                         HeightRequest="32" WidthRequest="32"
+                         VerticalOptions="Center"
+                         Clicked="ThisPage_Tapped" Margin="8"
                          Grid.Row="0" Grid.Column="2"/>
             <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"
                          Margin="4,0" 

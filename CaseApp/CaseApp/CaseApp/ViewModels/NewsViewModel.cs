@@ -10,6 +10,7 @@ using System.Windows.Input;
 using CaseApp.Annotations;
 using CaseApp.Services;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace CaseApp.ViewModels
 {
@@ -18,7 +19,15 @@ namespace CaseApp.ViewModels
         private bool _isRefreshing = false;
         private IEnumerable<IGrouping<string, Article>> _articles;
         private IEnumerable<IGrouping<string, Article>> _favoriteArticles;
-        private List<NewsFeed> _newsFeeds;
+        private ObservableCollection<NewsFeed> _newsFeeds;
+
+        public NewsViewModel()
+        {
+            Task.Run(async () =>
+            {
+                NewsFeeds = new ObservableCollection<NewsFeed>(await NewsProvider.GetProvider().GetNewsFeedsAsync());
+            });
+        }
 
         public IEnumerable<IGrouping<string, Article>> Articles
         {
@@ -41,7 +50,8 @@ namespace CaseApp.ViewModels
             }
         }
 
-        public List<NewsFeed> NewsFeeds {
+        public ObservableCollection<NewsFeed> NewsFeeds
+        {
             get => _newsFeeds;
             set
             {
@@ -51,32 +61,36 @@ namespace CaseApp.ViewModels
             }
         }
 
-        public bool IsRefreshing
+        public bool IsRefreshingNews
         {
             get { return _isRefreshing; }
             set
             {
                 _isRefreshing = value;
-                OnPropertyChanged(nameof(IsRefreshing));
+                OnPropertyChanged(nameof(IsRefreshingNews));
             }
         }
 
-        public ICommand RefreshCommand => new Command(async () =>
-                                                        {
-                                                            IsRefreshing = true;
+        public ICommand RefreshNewsCommand => new Command(async () =>
+        {
+            IsRefreshingNews = true;
 
-                                                            List<Article> news = await NewsProvider.GetProvider().GetNews();
-                                                            Articles = from item in news
-                                                                       orderby item.PublishDate descending
-                                                                       group item by Utility.RelativeTime(item.PublishDate);
+            List<Article> news = await NewsProvider.GetProvider().GetNews();
+            Articles = from item in news
+                        orderby item.PublishDate descending
+                        group item by Utility.RelativeTime(item.PublishDate);
 
-                                                            List<Article> faves = await NewsProvider.GetProvider().GetFavoritesAsync();
-                                                            FavoriteArticles = from item in faves
-                                                                               orderby item.PublishDate descending
-                                                                               group item by Utility.RelativeTime(item.PublishDate);
+            IsRefreshingNews = false;
+        });
 
-                                                            NewsFeeds = await NewsProvider.GetProvider().GetNewsFeedsAsync();
-                                                            IsRefreshing = false;
-                                                        });
+        public ICommand RefreshFavoritesCommand => new Command(async () =>
+        {
+            IsRefreshingNews = true;
+            List<Article> faves = await NewsProvider.GetProvider().GetFavoritesAsync();
+            FavoriteArticles = from item in faves
+                               orderby item.PublishDate descending
+                               group item by Utility.RelativeTime(item.PublishDate);
+            IsRefreshingNews = false;
+        });
     }
 }

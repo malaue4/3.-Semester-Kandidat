@@ -36,7 +36,7 @@
             </ListView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Button Text="Add" IsEnabled="{Binding NewsFeedCandidate,Converter={StaticResource ObjectNotNull}}" Command="{Binding AddFeedCommand}" Clicked="CancelButton_OnClicked"/>
-                <Button Text="Cancel" Clicked="CancelButton_OnClicked"/>
+                <Button Text="Close" Clicked="CancelButton_OnClicked"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

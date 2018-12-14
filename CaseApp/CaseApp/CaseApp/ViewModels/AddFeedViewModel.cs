@@ -15,6 +15,7 @@ namespace CaseApp.ViewModels
     {
         private NewsFeed _newsFeedCandidate;
         private List<Article> _articles;
+        private string _errorMessage;
 
         public NewsFeed NewsFeedCandidate
         {
@@ -42,7 +43,17 @@ namespace CaseApp.ViewModels
             }
         }
 
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage {
+            get => _errorMessage;
+            set
+            {
+                if (_errorMessage != value)
+                {
+                    _errorMessage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public ICommand AddFeedCommand
         {
@@ -70,7 +81,8 @@ namespace CaseApp.ViewModels
             {
                 ErrorMessage = null;
                 NewsFeedCandidate = Articles[0].Source;
-            } else
+            }
+            else
             {
                 // Error: it was not a valid rss feed
                 ErrorMessage = $"Error: '{feedUrl}' is not a valid rss feed";

@@ -48,7 +48,13 @@ namespace CaseApp.Models
         {
             get
             {
-                if (_icon == null) _icon = ImageSource.FromUri(new Uri($"https://www.google.com/s2/favicons?domain={Link.Host}"));
+                if (_icon == null)
+                {
+                    Uri iconUri = new Uri($"https://www.google.com/s2/favicons?domain={Link.Host}");
+                    //Uri iconUri = new Uri($"https://icons.duckduckgo.com/ip2/{Link.Host}.ico");
+                    _icon = ImageSource.FromUri(iconUri);
+                }
+
                 return _icon;
             }
         }
