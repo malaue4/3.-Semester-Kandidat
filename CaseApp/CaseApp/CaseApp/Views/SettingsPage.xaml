@@ -18,7 +18,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="My Feeds"/>
+            <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}"/>
             <ListView x:Name="MyListView"
                       CachingStrategy="RecycleElement"
                       ItemsSource="{Binding NewsFeeds}" 
@@ -27,7 +27,7 @@
                       IsRefreshing="{Binding IsRefreshing}"
                       HorizontalOptions="Fill"
                       VerticalOptions="Start"
-                      HeightRequest="200">
+                      HeightRequest="512">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -35,14 +35,13 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="Locations"/>
+            <Label Text="Locations" Style="{DynamicResource SubtitleStyle}"/>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Home Location" />
                 <Entry Placeholder="Placeholder" HorizontalOptions="FillAndExpand" />
                 <Button Text="Pick"/>
             </StackLayout>
             <ListView 
-                 BackgroundColor="Aquamarine"
                  ItemsSource="{Binding TestList, Source={x:Reference ThisPage}}"/> 
         </StackLayout>
     </ContentPage.Content>

@@ -21,7 +21,7 @@
         <NavigationPage Title="Favorites">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_about.png"/>
+                    <On Platform="iOS" Value="tab_favorites.png"/>
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
@@ -32,7 +32,7 @@
         <NavigationPage Title="Map">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_about.png"/>
+                    <On Platform="iOS" Value="tab_map.png"/>
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
@@ -43,7 +43,7 @@
         <NavigationPage Title="Settings">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_about.png"/>
+                    <On Platform="iOS" Value="tab_settings.svg"/>
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>

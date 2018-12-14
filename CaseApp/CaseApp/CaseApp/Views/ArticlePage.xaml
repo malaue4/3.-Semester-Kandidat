@@ -5,41 +5,12 @@
              x:Class="CaseApp.Views.ArticlePage"
              Title="{Binding Title}"
              x:Name="ThisPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <caseApp:BoolToValueConverter x:TypeArguments="x:String" x:Key="StarSwitch" TrueValue="Unfavorite" FalseValue="Favorite"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding Favorite, Converter={StaticResource StarSwitch}}" Command="{Binding ToggleFavoriteCommand, Source={x:Reference ThisPage}}" CommandParameter="{Binding}"
                      Icon="{Binding Favorite, Converter={StaticResource FavoriteSwitchIcon}}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <!--<Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Column="1">
-                <Label Text="{Binding Title}"
-                       VerticalOptions="CenterAndExpand" 
-                       HorizontalOptions="CenterAndExpand" />
-                <Label Text="{Binding PublishDate}"
-                       VerticalOptions="CenterAndExpand" 
-                       HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
-            <StackLayout Orientation="Vertical" Grid.Column="2">
-                <Label Text="Favorite"/>
-                <Switch IsToggled="{Binding Favorite, Mode=TwoWay}" Toggled="Switch_OnToggled"/>
-            </StackLayout>
-            <WebView x:Name="ArticleContentView" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Source="{Binding Link}"/>
-        </Grid>-->
         <WebView x:Name="ArticleContentView" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Source="{Binding Link}"/>
     </ContentPage.Content>
 </ContentPage>

@@ -2,16 +2,42 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:CaseApp.ViewModels"
+             xmlns:behaviors="clr-namespace:CaseApp.Behaviors"
+             xmlns:views="clr-namespace:CaseApp.Views"
              x:Class="CaseApp.Views.AddFeedPage">
     <ContentPage.BindingContext>
-        <viewModels:NewsViewModel/>
+        <viewModels:AddFeedViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Enter url:" />
-            <Entry Placeholder="http://rss.com/feed" x:Name="UrlEntry"/>
-            <Button Text="Add" />
-            <Button Text="Cancel" Clicked="CancelButton_OnClicked"/>
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="UrlEntry"
+                    Placeholder="http://rss.com/feed.xml" 
+                    Completed="UrlEntry_OnCompleted" 
+                    HorizontalOptions="FillAndExpand">
+                    <Entry.Behaviors>
+                        <behaviors:UrlValidatorBehavior x:Name="UrlValidator"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Button Text="Test" Clicked="UrlEntry_OnCompleted" IsEnabled="{Binding Source={x:Reference UrlValidator}, Path=IsValid}"/>
+            </StackLayout>
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource ObjectNotNull}}" TextColor="Red"/>
+            <StackLayout BindingContext="{Binding NewsFeedCandidate}">
+                <Entry Placeholder="Feed Title" Text="{Binding Title}"/>
+                <Entry Placeholder="Feed Description" Text="{Binding Description}"/>
+            </StackLayout>
+            <ListView ItemsSource="{Binding Articles}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <views:NewsArticleCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Add" IsEnabled="{Binding NewsFeedCandidate,Converter={StaticResource ObjectNotNull}}" Command="{Binding AddFeedCommand}" Clicked="CancelButton_OnClicked"/>
+                <Button Text="Cancel" Clicked="CancelButton_OnClicked"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -13,8 +13,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\UrlValidatorBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ColorSelectedConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ObjectNotNullConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -29,6 +31,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\NewsProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RssParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddFeedViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AddFeedPage.xaml.cs">
       <DependentUpon>AddFeedPage.xaml</DependentUpon>
@@ -100,7 +104,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Properties\" />
   </ItemGroup>
   <ItemGroup>

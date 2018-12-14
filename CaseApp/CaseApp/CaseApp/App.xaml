@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:caseApp="clr-namespace:CaseApp"
+             xmlns:converters="clr-namespace:CaseApp.Converters"
              x:Class="CaseApp.App">
     <Application.Resources>
         <ResourceDictionary>
-            <caseApp:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="FavoriteSwitchIcon" FalseValue="Assets/fav0.png" TrueValue="Assets/fav1.png" />
+            <converters:BoolToValueConverter x:TypeArguments="x:String" x:Key="StarSwitch" TrueValue="Unfavorite" FalseValue="Favorite"/>
+            <converters:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="FavoriteSwitchIcon" FalseValue="Assets/fav0.png" TrueValue="Assets/fav1.png" />
+            <converters:ItemSelectedConverter x:Key="ItemSelected" />
+            <converters:ObjectNotNullConverter x:Key="ObjectNotNull"/>
             <Color x:Key="PrimStyle">Black</Color>
             <Style x:Key="ListViewGroupHeaderStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="20"/>

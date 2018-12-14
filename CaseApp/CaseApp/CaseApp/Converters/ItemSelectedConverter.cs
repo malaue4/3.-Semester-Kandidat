@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace CaseApp
+namespace CaseApp.Converters
 {
     class ItemSelectedConverter : IValueConverter
     {

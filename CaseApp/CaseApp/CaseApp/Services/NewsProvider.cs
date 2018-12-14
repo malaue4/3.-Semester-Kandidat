@@ -17,27 +17,7 @@ namespace CaseApp.Services
 
         private async Task<List<Article>> LoadSampleData()
         {
-            var NewsFeeds = new List<NewsFeed>
-            {
-                new NewsFeed
-                {
-                    Title = "Google Blog",
-                    Active = true,
-                    Link = new Uri("https://www.blog.google/rss/")
-                },
-                new NewsFeed
-                {
-                    Title = "Visual Studio Magazine",
-                    Active = true,
-                    Link = new Uri("https://visualstudiomagazine.com/rss-feeds/columns.aspx")
-                },
-                new NewsFeed
-                {
-                    Title = "DR Nyheder",
-                    Active = false,
-                    Link = new Uri("https://www.dr.dk/nyheder/service/feeds/allenyheder")
-                }
-            };
+            var NewsFeeds = await App.Database.GetNewsFeedsAsync();
             var articles = new List<Article>();
             foreach (var newsFeed in NewsFeeds)
             {
@@ -46,9 +26,7 @@ namespace CaseApp.Services
                     articles.AddRange(await new RssParser().ParseFeed(newsFeed.LinkString));
                 }
             }
-            //articles.AddRange(await (new RssParser().ParseFeed("https://visualstudiomagazine.com/rss-feeds/columns.aspx")));
-            //articles.AddRange(await (new RssParser().ParseFeed("https://www.blog.google/rss/")));
-            var faves = await App.Database.GetFavorites();
+            var faves = await App.Database.GetFavoritesAsync();
             
             return faves.Union(articles.Where(article=>!faves.Exists(fav => fav.Link.Equals(article.Link)))).ToList();
         }
@@ -64,13 +42,13 @@ namespace CaseApp.Services
 
         public async Task<List<Article>> GetFavoritesAsync()
         {
-            return await App.Database.GetFavorites();
+            return await App.Database.GetFavoritesAsync();
             //return Articles.Where(article => article.Favorite).ToList();
         }
 
         public async Task<List<NewsFeed>> GetNewsFeedsAsync()
         {
-            return await App.Database.GetNewsFeeds();
+            return await App.Database.GetNewsFeedsAsync();
         }
     }
 }

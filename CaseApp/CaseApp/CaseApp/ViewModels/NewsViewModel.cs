@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace CaseApp.ViewModels
 {
-    class NewsViewModel : INotifyPropertyChanged
+    class NewsViewModel : BaseViewModel
     {
         private bool _isRefreshing = false;
         private IEnumerable<IGrouping<string, Article>> _articles;
@@ -61,71 +61,22 @@ namespace CaseApp.ViewModels
             }
         }
 
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    IsRefreshing = true;
+        public ICommand RefreshCommand => new Command(async () =>
+                                                        {
+                                                            IsRefreshing = true;
 
-                    Articles = from item in await NewsProvider.GetProvider().GetNews()
-                               orderby item.PublishDate descending
-                               group item by Utility.RelativeTime(item.PublishDate);
-                    FavoriteArticles = from item in await NewsProvider.GetProvider().GetFavoritesAsync()
-                                       orderby item.PublishDate descending
-                                       group item by Utility.RelativeTime(item.PublishDate);
-                    IsRefreshing = false;
+                                                            List<Article> news = await NewsProvider.GetProvider().GetNews();
+                                                            Articles = from item in news
+                                                                       orderby item.PublishDate descending
+                                                                       group item by Utility.RelativeTime(item.PublishDate);
 
-                    NewsFeeds = await NewsProvider.GetProvider().GetNewsFeedsAsync();
-                    NewsFeeds = new List<NewsFeed>
-                    {
-                        new NewsFeed
-                        {
-                            Title = "Google Blog",
-                            Active = true
-                        },
-                        new NewsFeed
-                        {
-                            Title = "Visual Studio Magazine",
-                            Active = true
-                        },
-                        new NewsFeed
-                        {
-                            Title = "XKCD",
-                            Active = false
-                        }
-                    };
-                });
-                
-            }
-        }
+                                                            List<Article> faves = await NewsProvider.GetProvider().GetFavoritesAsync();
+                                                            FavoriteArticles = from item in faves
+                                                                               orderby item.PublishDate descending
+                                                                               group item by Utility.RelativeTime(item.PublishDate);
 
-        public ICommand AddFeedCommand
-        {
-            get
-            {
-                return new Command(async feedUrl =>
-                {
-                    if ((await App.Database.GetNewsFeeds()).Any(feed => feed.LinkString == (string)feedUrl))
-                    {
-                        //It is already here
-                    }
-                    else
-                    {
-                        var url = new Uri((string) feedUrl);
-                        await App.Database.SaveNewsFeedAsync(NewsFeed.From(url));
-                    }
-                });
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+                                                            NewsFeeds = await NewsProvider.GetProvider().GetNewsFeedsAsync();
+                                                            IsRefreshing = false;
+                                                        });
     }
 }

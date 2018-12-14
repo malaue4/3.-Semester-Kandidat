@@ -15,7 +15,7 @@
             <Label Text="{Binding Title, FallbackValue='Unknown'}"
                    Grid.Column="1"
                    VerticalOptions="Center"/>
-            <Switch IsToggled="{Binding Active}"
+            <Switch IsToggled="{Binding Active, Mode=TwoWay}"
                    Grid.Column="2"
                    VerticalOptions="Center"/>
         </Grid>

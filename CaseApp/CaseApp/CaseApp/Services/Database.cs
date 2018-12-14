@@ -16,7 +16,7 @@ namespace CaseApp.Services
             _database.CreateTableAsync<Article>().Wait();
         }
 
-        public Task<List<Article>> GetFavorites()
+        public Task<List<Article>> GetFavoritesAsync()
         {
             return _database.Table<Article>().ToListAsync();
         }
@@ -49,7 +49,7 @@ namespace CaseApp.Services
         }
 
 
-        public Task<List<NewsFeed>> GetNewsFeeds()
+        public Task<List<NewsFeed>> GetNewsFeedsAsync()
         {
             return _database.Table<NewsFeed>().ToListAsync();
         }

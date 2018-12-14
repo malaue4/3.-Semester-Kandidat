@@ -11,11 +11,6 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}" Icon="Assets/refresh.png" Order="Primary"/>
     </ContentPage.ToolbarItems>
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <caseApp:ItemSelectedConverter x:Key="ItemSelected" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <viewModels:NewsViewModel/>
     </ContentPage.BindingContext>

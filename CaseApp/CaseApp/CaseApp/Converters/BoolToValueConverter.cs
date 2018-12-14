@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace CaseApp
+namespace CaseApp.Converters
 {
         public class BoolToValueConverter<T> : IValueConverter
         {
