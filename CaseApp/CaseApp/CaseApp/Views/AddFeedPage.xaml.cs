@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CaseApp.ViewModels;
 using Xamarin.Forms;
@@ -26,7 +27,13 @@ namespace CaseApp.Views
 	    {
 	        if (BindingContext is AddFeedViewModel viewModel)
 	        {
-	            viewModel.TestFeed(UrlEntry.Text);
+                var hasProto = Regex.IsMatch(UrlEntry.Text, "\\A\\w*://.*", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+                var url = UrlEntry.Text;
+                if (!hasProto)
+                {
+                    url = "http://" + url;
+                }
+                viewModel.TestFeed(url);
 	        }
 	    }
 	}

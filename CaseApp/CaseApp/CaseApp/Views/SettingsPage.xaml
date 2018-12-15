@@ -10,7 +10,7 @@
              Title="Settings"
              x:Name="ThisPage">
     <ContentPage.BindingContext>
-        <viewmodels:NewsViewModel />
+        <viewmodels:SettingsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add Feed" Icon="Assets/add_doc.png" Order="Primary" Priority="0" Clicked="AddFeedMenuItem_OnClicked" />
@@ -18,10 +18,15 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="+" WidthRequest="56" FontSize="Large" Clicked="AddFeedMenuItem_OnClicked"/>
+                <Button Text="-" WidthRequest="56" FontSize="Large" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference MyListView}}"/>
+            </StackLayout>
             <ListView x:Name="MyListView"
                       CachingStrategy="RecycleElement"
-                      ItemsSource="{Binding NewsFeeds}" 
+                      ItemsSource="{Binding NewsFeeds}"
+                      SelectionMode="Single"
                       HasUnevenRows="False"
                       RefreshCommand="{Binding RefreshCommand}"
                       IsRefreshing="{Binding IsRefreshing}"
@@ -35,14 +40,19 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="Locations" Style="{DynamicResource SubtitleStyle}"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Home Location" />
-                <Entry Placeholder="Placeholder" HorizontalOptions="FillAndExpand" />
-                <Button Text="Pick"/>
+                <Label Text="Locations" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="+" WidthRequest="56" FontSize="Large" />
+                <Button Text="-" WidthRequest="56" FontSize="Large" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference LocationList}}" />
             </StackLayout>
-            <ListView 
-                 ItemsSource="{Binding TestList, Source={x:Reference ThisPage}}"/> 
+            <ListView x:Name="LocationList"
+                 ItemsSource="{Binding MapPins}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <views:MapLocationCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

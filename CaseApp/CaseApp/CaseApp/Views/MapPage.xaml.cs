@@ -43,7 +43,7 @@ namespace CaseApp.Views
 
 	        if (status == PermissionStatus.Granted)
 	        {
-                MyMapControl.IsShowingUser = true;
+                //MyMapControl.IsShowingUser = true;
 	        }
         }
 	}

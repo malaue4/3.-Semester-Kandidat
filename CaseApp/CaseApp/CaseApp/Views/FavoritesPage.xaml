@@ -12,7 +12,7 @@
         <ToolbarItem Text="Refresh" Command="{Binding RefreshCommand}" Icon="Assets/refresh.png" Order="Primary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
-        <viewModels:NewsViewModel/>
+        <viewModels:FavoritesViewModel/>
     </ContentPage.BindingContext>
     <ListView x:Name="MyListView"
               ItemsSource="{Binding FavoriteArticles}"

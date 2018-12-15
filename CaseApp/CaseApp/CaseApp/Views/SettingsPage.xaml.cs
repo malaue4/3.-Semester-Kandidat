@@ -26,8 +26,9 @@ namespace CaseApp.Views
             MyListView.BeginRefresh();
         }
 
-        private void AddFeedMenuItem_OnClicked(object sender, EventArgs e)
+        private async void AddFeedMenuItem_OnClicked(object sender, EventArgs e)
         {
+            await DisplayActionSheet("Is Mads a faggot?", "Hell Yes", null, "Definitely", "You know it");
             Navigation.PushModalAsync(new AddFeedPage());
         }
     }
