@@ -31,5 +31,13 @@ namespace CaseApp.Views
             await DisplayActionSheet("Is Mads a faggot?", "Hell Yes", null, "Definitely", "You know it");
             Navigation.PushModalAsync(new AddFeedPage());
         }
+
+        private void MyListView_ItemDisappearing(object sender, ItemVisibilityEventArgs e)
+        {
+            if(sender is ListView listView)
+            {
+                listView.SelectedItem = null;
+            }
+        }
     }
 }

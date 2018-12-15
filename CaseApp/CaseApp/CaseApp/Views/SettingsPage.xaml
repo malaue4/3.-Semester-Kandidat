@@ -26,6 +26,7 @@
             <ListView x:Name="MyListView"
                       CachingStrategy="RecycleElement"
                       ItemsSource="{Binding NewsFeeds}"
+                      ItemDisappearing="MyListView_ItemDisappearing"
                       SelectionMode="Single"
                       HasUnevenRows="False"
                       RefreshCommand="{Binding RefreshCommand}"
@@ -46,7 +47,8 @@
                 <Button Text="-" WidthRequest="56" FontSize="Large" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference LocationList}}" />
             </StackLayout>
             <ListView x:Name="LocationList"
-                 ItemsSource="{Binding MapPins}">
+                      ItemsSource="{Binding MapPins}"
+                      ItemDisappearing="MyListView_ItemDisappearing">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <views:MapLocationCell/>
