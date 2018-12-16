@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CaseApp.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -51,10 +52,10 @@ namespace CaseApp.Views
 	        if (Page != null) await Page.Navigation.PushAsync(articlePage);
         }
 
-        private void ThisPage_Tapped(object sender, EventArgs e)
+        public ICommand FavoriteCommand => new Command(()=>
         {
-            if(((View)sender).BindingContext is Article article)
+            if (BindingContext is Article article)
                 article.Favorite = !article.Favorite;
-        }
+        });
     }
 }

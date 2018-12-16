@@ -107,8 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\add_doc.png" />
-    <Content Include="Assets\fav0.png" />
-    <Content Include="Assets\fav1.png" />
+    <Content Include="Assets\fav0b.png" />
+    <Content Include="Assets\fav0w.png" />
+    <Content Include="Assets\fav1b.png" />
+    <Content Include="Assets\fav1w.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />

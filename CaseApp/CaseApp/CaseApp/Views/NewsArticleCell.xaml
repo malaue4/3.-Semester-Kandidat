@@ -23,11 +23,15 @@
             <!--<Switch IsToggled="{Binding Favorite, Mode=TwoWay}"
                    HeightRequest="48" Margin="16, 0"
                    Grid.Row="0" Grid.Column="2"/>-->
-            <ImageButton Source="{Binding Favorite, Converter={StaticResource FavoriteSwitchIconDark}}"
-                         HeightRequest="32" WidthRequest="32"
-                         VerticalOptions="Center"
-                         Clicked="ThisPage_Tapped" Margin="8"
-                         Grid.Row="0" Grid.Column="2" BackgroundColor="Transparent"/>
+            <!--TODO: Vi bruger ikke en ImageButton, fordi den ser forkert ud på Android.. Er der en bedre løsning?-->
+            <Image Source="{Binding Favorite, Converter={StaticResource FavoriteSwitchIconDark}}"
+                         HeightRequest="40" WidthRequest="40"
+                         VerticalOptions="Center" Margin="8"
+                         Grid.Row="0" Grid.Column="2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FavoriteCommand, Source={x:Reference ThisPage}}" />
+                </Image.GestureRecognizers>
+            </Image>
             <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"
                          Margin="4,0" 
                    Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1">

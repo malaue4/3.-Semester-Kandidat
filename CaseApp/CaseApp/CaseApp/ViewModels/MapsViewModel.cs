@@ -72,7 +72,7 @@ namespace CaseApp.ViewModels
             async (item) => {
                 if (item is Pin mapPin)
                 {
-                    if("Yes".Equals(await App.Current.MainPage.DisplayActionSheet("Are you sure you want to delete?", "Nevermind", null, "Yes")))
+                    if (await App.Current.MainPage.DisplayAlert("Delete?", $"Are you sure you want to delete \"{mapPin.Label}\"?", "Yes", "Nevermind"))
                     if (MapPins.Remove(mapPin))
                     {
                             var toastConfig = new ToastConfig("Pin deleted");

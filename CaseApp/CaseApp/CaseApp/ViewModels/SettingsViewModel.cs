@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using System.Collections.Generic;
 using Acr.UserDialogs;
+using System.Threading.Tasks;
 
 namespace CaseApp.ViewModels
 {
@@ -52,6 +53,7 @@ namespace CaseApp.ViewModels
             IsRefreshing = true;
 
             NewsFeeds = new ObservableCollection<NewsFeed>(await NewsProvider.GetProvider().GetNewsFeedsAsync());
+            await Task.Delay(100);
 
             IsRefreshing = false;
         });
@@ -60,20 +62,9 @@ namespace CaseApp.ViewModels
             async (item) => {
                 if (item  is NewsFeed feed)
                 {
-                    if(NewsFeeds.Remove(feed))
-                        await App.Database.DeleteNewsFeedAsync(feed);
-                } else if (item is Pin mapPin)
-                {
-                    if("Yes".Equals(await App.Current.MainPage.DisplayActionSheet("Are you sure you want to delete?", "Nevermind", null, "Yes")))
-                    if (MapPins.Remove(mapPin))
-                    {
-                            var toastConfig = new ToastConfig("Pin deleted");
-                            toastConfig.SetDuration(3000);
-                            toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(12, 131, 193));
 
-                            UserDialogs.Instance.Toast(toastConfig);
-                            //App.Current.MainPage.DisplayAlert("Pin deleted", "It is gone now.", "ok");
-                    }
+                    if (await App.Current.MainPage.DisplayAlert("Delete?", $"Are you sure you want to delete \"{feed.Title}\"?", "Yes", "Nevermind"))
+                        if (NewsFeeds.Remove(feed)) await App.Database.DeleteNewsFeedAsync(feed);
                 }
             },
             (item) => item != null && (NewsFeeds.Contains(item as NewsFeed) || MapPins.Contains(item as Pin)));

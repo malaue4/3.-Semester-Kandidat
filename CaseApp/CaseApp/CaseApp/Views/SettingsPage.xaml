@@ -18,7 +18,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
+            <Label Text="My Feeds" Style="{DynamicResource ListViewGroupHeaderStyle}" HorizontalOptions="FillAndExpand"/>
             <!--<StackLayout Orientation="Horizontal">
                 <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
                 <Button Text="+" WidthRequest="56" FontSize="Large" Clicked="AddFeedMenuItem_OnClicked"/>

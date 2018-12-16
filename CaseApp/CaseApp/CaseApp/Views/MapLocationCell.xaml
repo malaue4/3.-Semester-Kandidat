@@ -5,8 +5,8 @@
     <ViewCell.View>
         <StackLayout Orientation="Horizontal">
             <BoxView/>
-            <Label Text="{Binding Label}" HorizontalOptions="FillAndExpand" />
-            <Button Text="Show" VerticalOptions="FillAndExpand" Clicked="Button_Clicked"/>
+            <Label Text="{Binding Label}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" FontSize="Large"/>
+            <Button Text="Go to" VerticalOptions="FillAndExpand" Clicked="Button_Clicked"/>
         </StackLayout>
     </ViewCell.View>
 </ViewCell>
