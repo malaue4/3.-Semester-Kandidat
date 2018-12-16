@@ -14,15 +14,16 @@
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add Feed" Icon="Assets/add_doc.png" Order="Primary" Priority="0" Clicked="AddFeedMenuItem_OnClicked" />
-        <ToolbarItem Text="Edite?" Icon="Assets/doc512.png" Order="Primary" Priority="1" />
+        <ToolbarItem Text="Remove Feed" Icon="Assets/del_doc.png" Order="Primary" Priority="1" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference MyListView}}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
+            <!--<StackLayout Orientation="Horizontal">
                 <Label Text="My Feeds" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
                 <Button Text="+" WidthRequest="56" FontSize="Large" Clicked="AddFeedMenuItem_OnClicked"/>
                 <Button Text="-" WidthRequest="56" FontSize="Large" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference MyListView}}"/>
-            </StackLayout>
+            </StackLayout>-->
             <ListView x:Name="MyListView"
                       CachingStrategy="RecycleElement"
                       ItemsSource="{Binding NewsFeeds}"
@@ -34,24 +35,9 @@
                       HorizontalOptions="Fill"
                       VerticalOptions="Start"
                       HeightRequest="512">
-
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <views:NewsFeedCell />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Locations" Style="{DynamicResource SubtitleStyle}" HorizontalOptions="FillAndExpand"/>
-                <Button Text="+" WidthRequest="56" FontSize="Large" />
-                <Button Text="-" WidthRequest="56" FontSize="Large" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference LocationList}}" />
-            </StackLayout>
-            <ListView x:Name="LocationList"
-                      ItemsSource="{Binding MapPins}"
-                      ItemDisappearing="MyListView_ItemDisappearing">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <views:MapLocationCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

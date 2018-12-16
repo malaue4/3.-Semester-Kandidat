@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
+using Acr.UserDialogs;
+using Xamarin.Forms;
 
 namespace CaseApp.Droid
 {
@@ -20,6 +22,7 @@ namespace CaseApp.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            UserDialogs.Init(this); // Små beskeder
             CrossCurrentActivity.Current.Init(this, savedInstanceState); // Tilføjet for at kunne bruge permission plugin
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState); // tilføjet for at bruge maps

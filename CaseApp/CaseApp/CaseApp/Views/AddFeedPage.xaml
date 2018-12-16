@@ -9,35 +9,37 @@
         <viewModels:AddFeedViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Enter url:" />
-            <StackLayout Orientation="Horizontal">
-                <Entry x:Name="UrlEntry"
+            <StackLayout>
+                <Label Text="Enter url:" />
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="UrlEntry"
                     Placeholder="http://rss.com/feed.xml" 
                     Completed="UrlEntry_OnCompleted" 
                     HorizontalOptions="FillAndExpand">
-                    <Entry.Behaviors>
-                        <behaviors:UrlValidatorBehavior x:Name="UrlValidator"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Button Text="Test" Clicked="UrlEntry_OnCompleted" IsEnabled="{Binding Source={x:Reference UrlValidator}, Path=IsValid}"/>
+                        <Entry.Behaviors>
+                            <behaviors:UrlValidatorBehavior x:Name="UrlValidator"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Button Text="Test" Clicked="UrlEntry_OnCompleted" IsEnabled="{Binding Source={x:Reference UrlValidator}, Path=IsValid}"/>
+                </StackLayout>
+                <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource ObjectNotNull}}" TextColor="Red"/>
+                <StackLayout BindingContext="{Binding NewsFeedCandidate}">
+                    <Entry Placeholder="Feed Title" Text="{Binding Title}"/>
+                    <Entry Placeholder="Feed Description" Text="{Binding Description}"/>
+                </StackLayout>
+        <ScrollView>
+                <ListView ItemsSource="{Binding Articles}" VerticalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <views:NewsArticleCell/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+        </ScrollView>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Add" BackgroundColor="Accent" TextColor="White" IsEnabled="{Binding Source={x:Reference UrlValidator}, Path=IsValid}" Command="{Binding AddFeedCommand}" Clicked="CancelButton_OnClicked"/>
+                    <Button Text="Close" Clicked="CancelButton_OnClicked"/>
+                </StackLayout>
             </StackLayout>
-            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource ObjectNotNull}}" TextColor="Red"/>
-            <StackLayout BindingContext="{Binding NewsFeedCandidate}">
-                <Entry Placeholder="Feed Title" Text="{Binding Title}"/>
-                <Entry Placeholder="Feed Description" Text="{Binding Description}"/>
-            </StackLayout>
-            <ListView ItemsSource="{Binding Articles}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <views:NewsArticleCell/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Add" IsEnabled="{Binding Source={x:Reference UrlValidator}, Path=IsValid}" Command="{Binding AddFeedCommand}" Clicked="CancelButton_OnClicked"/>
-                <Button Text="Close" Clicked="CancelButton_OnClicked"/>
-            </StackLayout>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -6,7 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <converters:BoolToValueConverter x:TypeArguments="x:String" x:Key="StarSwitch" TrueValue="Unfavorite" FalseValue="Favorite"/>
-            <converters:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="FavoriteSwitchIcon" FalseValue="Assets/fav0.png" TrueValue="Assets/fav1.png" />
+            <converters:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="FavoriteSwitchIconDark" FalseValue="Assets/fav0b.png" TrueValue="Assets/fav1b.png" />
+            <converters:BoolToValueConverter x:TypeArguments="FileImageSource" x:Key="FavoriteSwitchIconLight" FalseValue="Assets/fav0w.png" TrueValue="Assets/fav1w.png" />
             <converters:ItemSelectedConverter x:Key="ItemSelected" />
             <converters:ObjectNotNullConverter x:Key="ObjectNotNull"/>
             <Color x:Key="PrimStyle">Black</Color>

@@ -18,6 +18,9 @@ namespace CaseApp.Services
         private async Task<List<Article>> LoadSampleData()
         {
             var NewsFeeds = await App.Database.GetNewsFeedsAsync();
+            //https://visualstudiomagazine.com/rss-feeds/columns.aspx
+            //https://www.dr.dk/nyheder/service/feeds/viden
+
             var articles = new List<Article>();
             foreach (var newsFeed in NewsFeeds)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace CaseApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MapPage : ContentPage
 	{
-		public MapPage ()
+        public MapPage ()
 		{
 			InitializeComponent ();
 
@@ -46,5 +47,22 @@ namespace CaseApp.Views
                 //MyMapControl.IsShowingUser = true;
 	        }
         }
-	}
+
+        private void LocationList_ItemAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            if(e.Item is Pin pin)
+            {
+                MyMapControl.Pins.Add(pin);
+            }
+        }
+
+        private void LocationList_ItemDisappearing(object sender, ItemVisibilityEventArgs e)
+        {
+            if (e.Item is Pin pin)
+            {
+                MyMapControl.Pins.Remove(pin);
+            }
+
+        }
+    }
 }

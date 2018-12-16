@@ -7,7 +7,7 @@
              x:Name="ThisPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding Favorite, Converter={StaticResource StarSwitch}}" Command="{Binding ToggleFavoriteCommand, Source={x:Reference ThisPage}}" CommandParameter="{Binding}"
-                     Icon="{Binding Favorite, Converter={StaticResource FavoriteSwitchIcon}}">
+                     Icon="{Binding Favorite, Converter={StaticResource FavoriteSwitchIconLight}}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

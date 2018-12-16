@@ -3,14 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="CaseApp.Views.MapPage"
+             xmlns:views="clr-namespace:CaseApp.Views"
+             xmlns:viewmodels="clr-namespace:CaseApp.ViewModels"
              Title="Map">
+    <ContentPage.BindingContext>
+        <viewmodels:MapsViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <maps:Map HeightRequest="200" WidthRequest="320"
                                    x:Name="MyMapControl"
                                    IsShowingUser="False"
                                    MapType="Street"
-                HorizontalOptions="Fill"/>
-        </StackLayout>
+                HorizontalOptions="Fill"
+                      VerticalOptions="FillAndExpand"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="EndAndExpand">
+                <Button Text="Save Location" Command="{Binding AddCommand}" CommandParameter="{Binding Path=VisibleRegion, Source={x:Reference MyMapControl}}"/>
+                <Button Text="Remove Location" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem, Source={x:Reference LocationList}}" />
+            </StackLayout>
+            <ListView x:Name="LocationList"
+                      ItemsSource="{Binding MapPins}"
+                      ItemAppearing="LocationList_ItemAppearing"
+                      ItemDisappearing="LocationList_ItemDisappearing"
+                       Grid.Row="2">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <views:MapLocationCell
+                            MapView="{x:Reference MyMapControl}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

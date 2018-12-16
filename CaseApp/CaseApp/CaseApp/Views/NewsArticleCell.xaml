@@ -23,18 +23,17 @@
             <!--<Switch IsToggled="{Binding Favorite, Mode=TwoWay}"
                    HeightRequest="48" Margin="16, 0"
                    Grid.Row="0" Grid.Column="2"/>-->
-            <ImageButton Source="{Binding Favorite, Converter={StaticResource FavoriteSwitchIcon}}"
+            <ImageButton Source="{Binding Favorite, Converter={StaticResource FavoriteSwitchIconDark}}"
                          HeightRequest="32" WidthRequest="32"
                          VerticalOptions="Center"
                          Clicked="ThisPage_Tapped" Margin="8"
-                         Grid.Row="0" Grid.Column="2"/>
+                         Grid.Row="0" Grid.Column="2" BackgroundColor="Transparent"/>
             <StackLayout x:Name="ExpandedContent" IsVisible="{Binding IsExpanded, Source={x:Reference ThisPage}}"
                          Margin="4,0" 
                    Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1">
                 <Label Text="{Binding Description}"
                    Style="{DynamicResource ListItemDetailTextStyle}"
-                       MaxLines="4" LineBreakMode="WordWrap"
-                       />
+                       MaxLines="4" LineBreakMode="WordWrap"/>
                 <Label Text="See full article" TextColor="Blue"
                     Style="{DynamicResource ListItemDetailTextStyle}">
                     <Label.GestureRecognizers>
