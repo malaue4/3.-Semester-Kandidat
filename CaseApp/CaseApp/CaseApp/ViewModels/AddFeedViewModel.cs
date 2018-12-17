@@ -15,7 +15,8 @@ namespace CaseApp.ViewModels
     {
         private NewsFeed _newsFeedCandidate;
         private List<Article> _articles;
-        private string _errorMessage;
+        private bool _isTesting = false;
+        private TestStatus _test = TestStatus.Untested;
 
         public NewsFeed NewsFeedCandidate
         {
@@ -43,15 +44,30 @@ namespace CaseApp.ViewModels
             }
         }
 
-        public string ErrorMessage {
-            get => _errorMessage;
+        //TODO: Implementér feedback for test
+        //TODO: Implementér feedback for test
+        public bool IsTesting
+        {
+            get => _isTesting;
             set
             {
-                if (_errorMessage != value)
-                {
-                    _errorMessage = value;
-                    OnPropertyChanged();
-                }
+                _isTesting = value;
+                OnPropertyChanged();
+            }
+        }
+        public enum TestStatus
+        {
+            Untested,
+            Passed,
+            Failed
+        }
+        public TestStatus Test
+        {
+            get => _test;
+            set
+            {
+                _test = value;
+                OnPropertyChanged();
             }
         }
 
@@ -76,18 +92,20 @@ namespace CaseApp.ViewModels
 
         public async Task TestFeed(string feedUrl)
         {
+            IsTesting = true;
             Articles = await new RssParser().ParseFeed(feedUrl);
             if (Articles != null)
             {
-                ErrorMessage = null;
+                Test = TestStatus.Passed;
                 NewsFeedCandidate = Articles[0].Source;
             }
             else
             {
                 // Error: it was not a valid rss feed
-                ErrorMessage = $"Error: '{feedUrl}' is not a valid rss feed";
+                Test = TestStatus.Failed;
                 NewsFeedCandidate = null;
             }
+            IsTesting = false;
         }
     }
 }

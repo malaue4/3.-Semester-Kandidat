@@ -35,53 +35,51 @@ namespace CaseApp.ViewModels
             }
         }
 
-        public ICommand RefreshCommand => new Command(async () =>
-        {
-            IsRefreshing = true;
-
-            //NewsFeeds = new ObservableCollection<NewsFeed>(await NewsProvider.GetProvider().GetNewsFeedsAsync());
-
-            IsRefreshing = false;
-        });
-
         public ICommand AddCommand => new Command(
             async (item) =>
             {
                 if (item is MapSpan span)
                 {
-                    var pin = new Pin
-            {
-                Label = "You are here",
-                Position = span.Center,
-                Type = PinType.Generic
-            };
-                    //if ("Yes".Equals(await App.Current.MainPage.DisplayActionSheet("Are you sure you want to delete?", "Nevermind", null, "Yes")))
-                    MapPins.Add(pin);
-                        
-                            var toastConfig = new ToastConfig("Pin added");
-                            toastConfig.SetDuration(3000);
-                            toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(12, 131, 193));
+                    var prompt = new PromptConfig
+                    {
+                        Title = "Name of location?",
+                        OkText = "Save",
+                        CancelText = "Nevermind",
+                        OnTextChanged = args =>
+                        {
+                            args.IsValid = !string.IsNullOrWhiteSpace(args.Value);
+                        },
+                        OnAction = args =>
+                        {
+                            if (args.Ok)
+                            {
+                                var pin = new Pin
+                                {
+                                    Label = args.Text,
+                                    Position = span.Center,
+                                    Type = PinType.Generic
+                                };
+                                MapPins.Add(pin);
+                                App.SendToast("Pin added");
+                            }
+                        }
+                    };
 
-                            UserDialogs.Instance.Toast(toastConfig);
-                            //App.Current.MainPage.DisplayAlert("Pin deleted", "It is gone now.", "ok");
-                        
+                    UserDialogs.Instance.Prompt(prompt);
+
                 }
             });
 
         public ICommand DeleteCommand => new Command(
-            async (item) => {
+            async (item) =>
+            {
                 if (item is Pin mapPin)
                 {
                     if (await App.Current.MainPage.DisplayAlert("Delete?", $"Are you sure you want to delete \"{mapPin.Label}\"?", "Yes", "Nevermind"))
-                    if (MapPins.Remove(mapPin))
-                    {
-                            var toastConfig = new ToastConfig("Pin deleted");
-                            toastConfig.SetDuration(3000);
-                            toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(12, 131, 193));
-
-                            UserDialogs.Instance.Toast(toastConfig);
-                            //App.Current.MainPage.DisplayAlert("Pin deleted", "It is gone now.", "ok");
-                    }
+                        if (MapPins.Remove(mapPin))
+                        {
+                            App.SendToast($"Pin \"{mapPin.Label}\" deleted");
+                        }
                 }
             },
             (item) => item != null && (MapPins.Contains(item as Pin)));

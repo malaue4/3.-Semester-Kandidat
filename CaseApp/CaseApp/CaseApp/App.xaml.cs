@@ -1,4 +1,5 @@
-﻿using CaseApp.Services;
+﻿using Acr.UserDialogs;
+using CaseApp.Services;
 using System;
 using System.IO;
 using Xamarin.Forms;
@@ -48,6 +49,20 @@ namespace CaseApp
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        //
+        // Summary:
+        //     Static method for sending the user toast-like notifications
+        //
+        public static void SendToast(string message, string icon=null)
+        {
+            var toastConfig = new ToastConfig(message);
+            toastConfig.SetDuration(3000);
+            toastConfig.SetIcon(icon);
+            toastConfig.SetBackgroundColor(Color.Accent);
+
+            UserDialogs.Instance.Toast(toastConfig);
         }
     }
 }
